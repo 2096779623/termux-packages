@@ -6,4 +6,4 @@
  Libs: -L${libdir} -ltsduck
 -Libs.private: -lprocstat -lkvm -lpthread -lrt -latomic -ldl -lm -lstdc++
 +Libs.private: -ldl -lm
- Cflags: -I${prefix}/include/tsduck --std=c++11
+ Cflags: -I${prefix}/include/tsduck {{STDCPP}}
