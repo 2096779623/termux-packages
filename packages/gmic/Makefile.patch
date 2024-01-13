@@ -1,6 +1,6 @@
-diff -uNr gmic-2.9.7/src/Makefile gmic-2.9.7.mod/src/Makefile
---- gmic-2.9.7/src/Makefile	2021-04-07 14:55:16.000000000 +0000
-+++ gmic-2.9.7.mod/src/Makefile	2021-05-04 16:08:14.407443228 +0000
+diff -uNr gmic-3.3.3/src/Makefile gmic-3.3.3.mod/src/Makefile
+--- gmic-3.3.3/src/Makefile	2024-01-12 20:30:13.000000000 +0800
++++ gmic-3.3.3.mod/src/Makefile	2024-01-13 11:01:55.691317594 +0800
 @@ -188,7 +188,7 @@
  ifndef NO_SRIPDLIB
  MANDATORY_CFLAGS += -std=c++11 -pedantic
@@ -10,18 +10,18 @@ diff -uNr gmic-2.9.7/src/Makefile gmic-2.9.7.mod/src/Makefile
  ifdef IS_GCC
  MANDATORY_CFLAGS += -Wall -Wextra -Wfatal-errors -Werror=unknown-pragmas -Werror=unused-label
  GCC_VER_GTEQ5 = $(shell expr `$(CXX) -dumpversion | cut -f1 -d.` \>= 5)
-@@ -350,8 +350,8 @@
- GMIC_STD_CFLAGS = $(MANDATORY_CFLAGS) $(ABORT_CFLAGS) $(PARALLEL_CFLAGS) $(FFTW_CFLAGS) $(CURL_CFLAGS) $(PNG_CFLAGS) $(JPEG_CFLAGS) $(TIFF_CFLAGS)
+@@ -348,8 +348,8 @@
+ GMIC_STD_CFLAGS = -Dgmic_community $(MANDATORY_CFLAGS) $(ABORT_CFLAGS) $(PARALLEL_CFLAGS) $(FFTW_CFLAGS) $(CURL_CFLAGS) $(PNG_CFLAGS) $(JPEG_CFLAGS) $(TIFF_CFLAGS)
  GMIC_STD_LIBS = $(MANDATORY_LIBS) $(PARALLEL_LIBS) $(FFTW_LIBS) $(CURL_LIBS) $(PNG_LIBS) $(JPEG_LIBS) $(TIFF_LIBS)
  ifeq ($(OS),Unix) # Unix
 -GMIC_STD_CFLAGS += $(OPENMP_CFLAGS) $(X11_CFLAGS) $(OPENEXR_CFLAGS)
 -GMIC_STD_LIBS += $(OPENMP_LIBS) $(X11_LIBS) $(OPENEXR_LIBS)
-+GMIC_STD_CFLAGS += $(X11_CFLAGS) $(OPENEXR_CFLAGS)
-+GMIC_STD_LIBS += $(X11_LIBS) $(OPENEXR_LIBS)
++GMIC_STD_CFLAGS += $(OPENMP_CFLAGS) $(OPENEXR_CFLAGS)
++GMIC_STD_LIBS += $(OPENMP_LIBS) $(OPENEXR_LIBS)
  else
  ifeq ($(OS),Darwin) # MacOSX
  GMIC_STD_CFLAGS += $(X11_CFLAGS) $(OPENEXR_CFLAGS)
-@@ -416,6 +416,10 @@
+@@ -414,6 +414,10 @@
  	$(MAKE) "CFLAGS+=$(GMIC_STD_CFLAGS) $(OPT_CFLAGS)" "LIBS+=gmic.o $(GMIC_STD_LIBS) $(OPT_LIBS)" gmic.o _cli
  	$(STRIP) gmic$(EXE)
  
@@ -32,12 +32,12 @@ diff -uNr gmic-2.9.7/src/Makefile gmic-2.9.7.mod/src/Makefile
  dev:
  	$(MAKE) "CFLAGS+=$(GMIC_STD_CFLAGS)" "LIBS+=gmic.o $(GMIC_STD_LIBS)" gmic.o _cli
  
-@@ -433,13 +437,20 @@
+@@ -432,13 +436,19 @@
  	        "LIBS+=gmic.o $(MANDATORY_LIBS) $(PARALLEL_LIBS) $(OPENMP_LIBS) $(X11_LIBS) $(OPENEXR_LIBS)" gmic.o _cli
  
  _cli: gmic$(EXE)
+-
 +_cli_gm: gmic-gm$(EXE)
- 
  gmic$(EXE): gmic_cli.cpp gmic.o
 -	$(CXX) -o gmic$(EXE) gmic_cli.cpp $(CFLAGS) $(LIBS)
 +	$(CXX) $(LDFLAGS) -o gmic$(EXE) gmic_cli.cpp $(CFLAGS) $(LIBS)
@@ -45,7 +45,7 @@ diff -uNr gmic-2.9.7/src/Makefile gmic-2.9.7.mod/src/Makefile
 +gmic-gm$(EXE): gmic_cli.cpp gmic_gm.o
 +	$(CXX) $(LDFLAGS) -o gmic-gm$(EXE) gmic_cli.cpp $(CFLAGS) $(MAGICK_CFLAGS) $(LIBS) $(MAGICK_LIBS)
  
- gmic.o: gmic.cpp gmic.h gmic_stdlib.h CImg.h
+ gmic.o: gmic.cpp gmic.h gmic_stdlib_community.h CImg.h
  	$(CXX) -o gmic.o -c gmic.cpp -Dgmic_core $(CFLAGS)
  
 +gmic_gm.o: gmic.cpp gmic.h gmic_stdlib.h CImg.h
@@ -54,3 +54,14 @@ diff -uNr gmic-2.9.7/src/Makefile gmic-2.9.7.mod/src/Makefile
  # CLI (shared).
  #--------------
  cli_shared:
+@@ -515,8 +515,8 @@
+ endif
+ GMIC_LIBC_STATIC_LIBS += $(MANDATORY_LIBS) $(PARALLEL_LIBS) $(FFTW_LIBS) $(PNG_LIBS) $(JPEG_LIBS)
+ ifeq ($(OS),Unix) # Unix.
+-GMIC_LIBC_STATIC_CFLAGS += $(OPENMP_CFLAGS) $(X11_CFLAGS)
+-GMIC_LIBC_STATIC_LIBS += $(OPENMP_LIBS) $(X11_LIBS)
++GMIC_LIBC_STATIC_CFLAGS += $(OPENMP_CFLAGS)
++GMIC_LIBC_STATIC_LIBS += $(OPENMP_LIBS)
+ else
+ ifeq ($(OS),Darwin) # MacOSX.
+ GMIC_LIBC_STATIC_CFLAGS += $(X11_CFLAGS)
