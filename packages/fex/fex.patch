@@ -137,10 +137,10 @@ index 03ff0fa34..d29620b14 100644
      } while (Result != -1 && Result != DataSize);
  
      return Result != -1;
-diff --git a/Source/Tools/FEXLoader/LinuxSyscalls/EmulatedFiles/EmulatedFiles.cpp b/Source/Tools/FEXLoader/LinuxSyscalls/EmulatedFiles/EmulatedFiles.cpp
+diff --git a/Source/Tools/LinuxEmulation/LinuxSyscalls/EmulatedFiles/EmulatedFiles.cpp b/Source/Tools/LinuxEmulation/LinuxSyscalls/EmulatedFiles/EmulatedFiles.cpp
 index 03b73436c..fc1041b4b 100644
---- a/Source/Tools/FEXLoader/LinuxSyscalls/EmulatedFiles/EmulatedFiles.cpp
-+++ b/Source/Tools/FEXLoader/LinuxSyscalls/EmulatedFiles/EmulatedFiles.cpp
+--- a/Source/Tools/LinuxEmulation/LinuxSyscalls/EmulatedFiles/EmulatedFiles.cpp
++++ b/Source/Tools/LinuxEmulation/LinuxSyscalls/EmulatedFiles/EmulatedFiles.cpp
 @@ -32,6 +32,14 @@ $end_info$
  #include <unistd.h>
  #include <utility>
@@ -156,16 +156,16 @@ index 03b73436c..fc1041b4b 100644
  namespace FEX::EmulatedFile {
    /**
     * @brief Generates a temporary file using raw FDs
-diff --git a/Source/Tools/FEXLoader/LinuxSyscalls/SignalDelegator.cpp b/Source/Tools/FEXLoader/LinuxSyscalls/SignalDelegator.cpp
+diff --git a/Source/Tools/LinuxEmulation/LinuxSyscalls/SignalDelegator.cpp b/Source/Tools/LinuxEmulation/LinuxSyscalls/SignalDelegator.cpp
 index db49bc7dc..99638dbec 100644
---- a/Source/Tools/FEXLoader/LinuxSyscalls/SignalDelegator.cpp
-+++ b/Source/Tools/FEXLoader/LinuxSyscalls/SignalDelegator.cpp
+--- a/Source/Tools/LinuxEmulation/LinuxSyscalls/SignalDelegator.cpp
++++ b/Source/Tools/LinuxEmulation/LinuxSyscalls/SignalDelegator.cpp
 @@ -40,6 +40,18 @@ $end_info$
  #define SS_AUTODISARM (1U << 31)
  #endif
  
 +/*
-+/home/builder/.termux-build/fex/src/Source/Tools/FEXLoader/LinuxSyscalls/SignalDelegator.cpp:931:24: error: expected unqualified-id
++/home/builder/.termux-build/fex/src/Source/Tools/LinuxEmulation/LinuxSyscalls/SignalDelegator.cpp:931:24: error: expected unqualified-id
 +    constexpr uint32_t SA_RESTORER = 0x04000000;
 +                       ^
 +/home/builder/.termux-build/_cache/android-r26b-api-24-v0/sysroot/usr/include/aarch64-linux-android/asm/signal.h:21:21: note: expanded from macro 'SA_RESTORER'
@@ -179,10 +179,10 @@ index db49bc7dc..99638dbec 100644
  namespace FEX::HLE {
  #ifdef _M_X86_64
    __attribute__((naked))
-diff --git a/Source/Tools/FEXLoader/VDSO_Emulation.cpp b/Source/Tools/FEXLoader/VDSO_Emulation.cpp
+diff --git a/Source/Tools/LinuxEmulation/VDSO_Emulation.cpp b/Source/Tools/LinuxEmulation/VDSO_Emulation.cpp
 index 0572ec148..b8e642267 100644
---- a/Source/Tools/FEXLoader/VDSO_Emulation.cpp
-+++ b/Source/Tools/FEXLoader/VDSO_Emulation.cpp
+--- a/Source/Tools/LinuxEmulation/VDSO_Emulation.cpp
++++ b/Source/Tools/LinuxEmulation/VDSO_Emulation.cpp
 @@ -18,6 +18,15 @@
  #include <sys/time.h>
  #include <unistd.h>
