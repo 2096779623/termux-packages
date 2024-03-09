@@ -2,9 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://developer.gnome.org/glib/
 TERMUX_PKG_DESCRIPTION="Library providing core building blocks for libraries and applications written in C"
 TERMUX_PKG_LICENSE="LGPL-2.1"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.78.4"
+TERMUX_PKG_VERSION="2.80.0"
 TERMUX_PKG_SRCURL=https://ftp.gnome.org/pub/gnome/sources/glib/${TERMUX_PKG_VERSION%.*}/glib-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=24b8e0672dca120cc32d394bccb85844e732e04fe75d18bb0573b2dbc7548f63
+TERMUX_PKG_SHA256=8228a92f92a412160b139ae68b6345bd28f24434a7b5af150ebe21ff587a561d
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_DEPENDS="libandroid-support, libffi, libiconv, pcre2, resolv-conf, zlib"
 TERMUX_PKG_BREAKS="glib-dev"
@@ -43,6 +43,7 @@ termux_step_host_build() {
 	# XXX: termux_setup_meson is not expected to be called in host build
 	AR=;CC=;CFLAGS=;CPPFLAGS=;CXX=;CXXFLAGS=;LD=;LDFLAGS=;PKG_CONFIG=;STRIP=
 	termux_setup_meson
+	termux_setup_gir
 	unset AR CC CFLAGS CPPFLAGS CXX CXXFLAGS LD LDFLAGS PKG_CONFIG STRIP
 
 	${TERMUX_MESON} ${TERMUX_PKG_SRCDIR} . \
