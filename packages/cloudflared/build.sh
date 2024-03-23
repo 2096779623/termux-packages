@@ -8,11 +8,17 @@ TERMUX_PKG_SHA256=6e5fda072d81b2d40208a0d244b44aaf607f26709711e157e23f44f812594e
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_BUILD_IN_SRC=true
 
-termux_step_make() {
-	termux_setup_golang
+termux_step_post_get_source() {
+	git clone https://github.com/cloudflare/go
+	cd go/src
+	./make.bash
+}
 
+termux_step_make() {
+	cd $TERMUX_PKG_SRCDIR
+	ls -lah
 	local _DATE=$(date -u '+%Y.%m.%d-%H:%M UTC')
-	go build -v -ldflags "-X \"main.Version=$TERMUX_PKG_VERSION\" -X \"main.BuildTime=$_DATE\"" \
+	./go/bin/go build -v -ldflags "-X \"main.Version=$TERMUX_PKG_VERSION\" -X \"main.BuildTime=$_DATE\"" \
 		./cmd/cloudflared
 }
 
