@@ -1,11 +1,12 @@
---- a/WinPort/src/Backend/WinPortMain.cpp
-+++ b/WinPort/src/Backend/WinPortMain.cpp
-@@ -242,7 +242,7 @@ struct ArgOptions
- 	bool tty = false, far2l_tty = false, notty = false;
- 	bool mortal = false;
- 	std::string ext_clipboard;
--	unsigned int esc_expiration = 0;
-+	unsigned int esc_expiration = 100;
- 	std::vector<char *> filtered_argv;
+diff -uNr far2l-v_2.6.1/WinPort/src/Backend/WinPortMain.cpp far2l-v_2.6.1.mod/WinPort/src/Backend/WinPortMain.cpp
+--- far2l-v_2.6.1/WinPort/src/Backend/WinPortMain.cpp   2024-04-14 01:15:13.000000000 +0800
++++ far2l-v_2.6.1.mod/WinPort/src/Backend/WinPortMain.cpp       2024-04-14 14:02:04.625797519 +0800
+@@ -259,7 +259,7 @@
+        bool wayland = false;
+        std::string ext_clipboard;
+        std::string test_id;
+-       unsigned int esc_expiration = 0;
++       unsigned int esc_expiration = 100;
+        std::vector<char *> filtered_argv;
  
- 	ArgOptions() = default;
+        ArgOptions() = default;
