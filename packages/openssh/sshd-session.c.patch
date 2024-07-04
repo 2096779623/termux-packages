@@ -1,0 +1,24 @@
+diff -uNr openssh-portable-V_9_8_P1/sshd-session.c openssh-portable-V_9_8_P1.mod/sshd-session.c
+--- openssh-portable-V_9_8_P1/sshd-session.c	2024-07-01 12:36:28.000000000 +0800
++++ openssh-portable-V_9_8_P1.mod/sshd-session.c	2024-07-04 18:44:24.132333567 +0800
+@@ -1074,17 +1074,14 @@
+ 
+ 	/* Store privilege separation user for later use if required. */
+ 	privsep_chroot = (getuid() == 0 || geteuid() == 0);
+-	if ((privsep_pw = getpwnam(SSH_PRIVSEP_USER)) == NULL) {
+-		if (privsep_chroot || options.kerberos_authentication)
+-			fatal("Privilege separation user %s does not exist",
+-			    SSH_PRIVSEP_USER);
+-	} else {
++	if ((privsep_pw = getpwnam("root")) == NULL) {
+ 		privsep_pw = pwcopy(privsep_pw);
+ 		freezero(privsep_pw->pw_passwd, strlen(privsep_pw->pw_passwd));
+ 		privsep_pw->pw_passwd = xstrdup("*");
+ 	}
++#ifndef __ANDROID__
+ 	endpwent();
+-
++#endif
+ 	if (!debug_flag) {
+ 		startup_pipe = dup(REEXEC_STARTUP_PIPE_FD);
+ 		close(REEXEC_STARTUP_PIPE_FD);
