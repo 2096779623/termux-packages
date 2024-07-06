@@ -1,6 +1,19 @@
---- a/winpr/libwinpr/path/shell.c
-+++ b/winpr/libwinpr/path/shell.c
-@@ -107,7 +107,7 @@
+diff -uNr FreeRDP-3.6.2/server/shadow/X11/x11_shadow.c FreeRDP-3.6.2.mod/server/shadow/X11/x11_shadow.c
+--- FreeRDP-3.6.2/server/shadow/X11/x11_shadow.c	2024-07-04 18:11:26.000000000 +0800
++++ FreeRDP-3.6.2.mod/server/shadow/X11/x11_shadow.c	2024-07-06 09:31:50.408670557 +0800
+@@ -130,7 +130,7 @@
+ 
+ static BOOL x11_shadow_pam_get_service_name(SHADOW_PAM_AUTH_INFO* info)
+ {
+-	const char* base = "/etc/pam.d";
++	const char* base = "@TERMUX_PREFIX@/etc/pam.d";
+ 	const char* hints[] = { "lightdm", "gdm", "xdm", "login", "sshd" };
+ 
+ 	for (size_t x = 0; x < ARRAYSIZE(hints); x++)
+diff -uNr FreeRDP-3.6.2/winpr/libwinpr/path/shell.c FreeRDP-3.6.2.mod/winpr/libwinpr/path/shell.c
+--- FreeRDP-3.6.2/winpr/libwinpr/path/shell.c	2024-07-04 18:11:26.000000000 +0800
++++ FreeRDP-3.6.2.mod/winpr/libwinpr/path/shell.c	2024-07-06 09:30:59.760670577 +0800
+@@ -112,7 +112,7 @@
  	path = GetEnvAlloc("TMPDIR");
  
  	if (!path)
@@ -9,71 +22,10 @@
  
  #endif
  	return path;
---- a/winpr/libwinpr/sspi/Schannel/schannel_openssl.c
-+++ b/winpr/libwinpr/sspi/Schannel/schannel_openssl.c
-@@ -240,7 +240,7 @@
- 	options |= SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS;
- 	SSL_CTX_set_options(context->ctx, options);
- 
--	if (SSL_CTX_use_RSAPrivateKey_file(context->ctx, "/tmp/localhost.key", SSL_FILETYPE_PEM) <= 0)
-+	if (SSL_CTX_use_RSAPrivateKey_file(context->ctx, "@TERMUX_PREFIX@/tmp/localhost.key", SSL_FILETYPE_PEM) <= 0)
- 	{
- 		WLog_ERR(TAG, "SSL_CTX_use_RSAPrivateKey_file failed");
- 		goto out_rsa_key;
-@@ -254,7 +254,7 @@
- 		goto out_ssl_new;
- 	}
- 
--	if (SSL_use_certificate_file(context->ssl, "/tmp/localhost.crt", SSL_FILETYPE_PEM) <= 0)
-+	if (SSL_use_certificate_file(context->ssl, "@TERMUX_PREFIX@/tmp/localhost.crt", SSL_FILETYPE_PEM) <= 0)
- 	{
- 		WLog_ERR(TAG, "SSL_use_certificate_file failed");
- 		goto out_use_certificate;
---- a/server/shadow/X11/x11_shadow.c
-+++ b/server/shadow/X11/x11_shadow.c
-@@ -131,7 +131,7 @@
- static BOOL x11_shadow_pam_get_service_name(SHADOW_PAM_AUTH_INFO* info)
- {
- 	size_t x;
--	const char* base = "/etc/pam.d";
-+	const char* base = "@TERMUX_PREFIX@/etc/pam.d";
- 	const char* hints[] = { "lightdm", "gdm", "xdm", "login", "sshd" };
- 
- 	for (x = 0; x < ARRAYSIZE(hints); x++)
---- a/winpr/libwinpr/timezone/timezone.c
-+++ b/winpr/libwinpr/timezone/timezone.c
-@@ -89,7 +89,7 @@
- 
- static char* winpr_get_timezone_from_link(void)
- {
--	const char* links[] = { "/etc/localtime", "/etc/TZ" };
-+	const char* links[] = { "@TERMUX_PREFIX@/etc/localtime", "@TERMUX_PREFIX@/etc/TZ" };
- 	size_t x;
- 	ssize_t len;
- 	char buf[1024];
-@@ -233,7 +233,7 @@
- #if defined(__FreeBSD__) || defined(__OpenBSD__)
- 	fp = winpr_fopen("/var/db/zoneinfo", "r");
- #else
--	fp = winpr_fopen("/etc/timezone", "r");
-+	fp = winpr_fopen("@TERMUX_PREFIX@/etc/timezone", "r");
- #endif
- 
- 	if (NULL == fp)
---- a/winpr/libwinpr/utils/sam.c
-+++ b/winpr/libwinpr/utils/sam.c
-@@ -40,7 +40,7 @@
- #ifdef _WIN32
- #define WINPR_SAM_FILE "C:\\SAM"
- #else
--#define WINPR_SAM_FILE "/etc/winpr/SAM"
-+#define WINPR_SAM_FILE "@TERMUX_PREFIX@/etc/winpr/SAM"
- #endif
- #define TAG WINPR_TAG("utils")
- 
---- a/winpr/libwinpr/registry/registry_reg.c
-+++ b/winpr/libwinpr/registry/registry_reg.c
-@@ -36,7 +36,7 @@
+diff -uNr FreeRDP-3.6.2/winpr/libwinpr/registry/registry_reg.c FreeRDP-3.6.2.mod/winpr/libwinpr/registry/registry_reg.c
+--- FreeRDP-3.6.2/winpr/libwinpr/registry/registry_reg.c	2024-07-04 18:11:26.000000000 +0800
++++ FreeRDP-3.6.2.mod/winpr/libwinpr/registry/registry_reg.c	2024-07-06 09:33:00.876670530 +0800
+@@ -34,7 +34,7 @@
  #include "../log.h"
  #define TAG WINPR_TAG("registry")
  
@@ -82,9 +34,55 @@
  
  struct reg_data_type
  {
---- a/winpr/libwinpr/wtsapi/wtsapi.c
-+++ b/winpr/libwinpr/wtsapi/wtsapi.c
-@@ -740,7 +740,7 @@
+diff -uNr FreeRDP-3.6.2/winpr/libwinpr/sspi/Schannel/schannel_openssl.c FreeRDP-3.6.2.mod/winpr/libwinpr/sspi/Schannel/schannel_openssl.c
+--- FreeRDP-3.6.2/winpr/libwinpr/sspi/Schannel/schannel_openssl.c	2024-07-04 18:11:26.000000000 +0800
++++ FreeRDP-3.6.2.mod/winpr/libwinpr/sspi/Schannel/schannel_openssl.c	2024-07-06 09:31:32.104670564 +0800
+@@ -272,7 +272,7 @@
+ 	SSL_CTX_set_options(context->ctx, options);
+ 
+ #if defined(WITH_DEBUG_SCHANNEL)
+-	if (SSL_CTX_use_RSAPrivateKey_file(context->ctx, "/tmp/localhost.key", SSL_FILETYPE_PEM) <= 0)
++	if (SSL_CTX_use_RSAPrivateKey_file(context->ctx, "@TERMUX_PREFIX@/tmp/localhost.key", SSL_FILETYPE_PEM) <= 0)
+ 	{
+ 		WLog_ERR(TAG, "SSL_CTX_use_RSAPrivateKey_file failed");
+ 		goto fail;
+@@ -287,7 +287,7 @@
+ 		goto fail;
+ 	}
+ 
+-	if (SSL_use_certificate_file(context->ssl, "/tmp/localhost.crt", SSL_FILETYPE_PEM) <= 0)
++	if (SSL_use_certificate_file(context->ssl, "@TERMUX_PREFIX@/tmp/localhost.crt", SSL_FILETYPE_PEM) <= 0)
+ 	{
+ 		WLog_ERR(TAG, "SSL_use_certificate_file failed");
+ 		goto fail;
+diff -uNr FreeRDP-3.6.2/winpr/libwinpr/timezone/timezone.c FreeRDP-3.6.2.mod/winpr/libwinpr/timezone/timezone.c
+--- FreeRDP-3.6.2/winpr/libwinpr/timezone/timezone.c	2024-07-04 18:11:26.000000000 +0800
++++ FreeRDP-3.6.2.mod/winpr/libwinpr/timezone/timezone.c	2024-07-06 09:32:25.376670544 +0800
+@@ -96,7 +96,7 @@
+ 
+ static char* winpr_get_timezone_from_link(const char* links[], size_t count)
+ {
+-	const char* _links[] = { "/etc/localtime", "/etc/TZ" };
++	const char* _links[] = { "@TERMUX_PREFIX@/etc/localtime", "@TERMUX_PREFIX@/etc/TZ" };
+ 
+ 	if (links == NULL)
+ 	{
+diff -uNr FreeRDP-3.6.2/winpr/libwinpr/utils/sam.c FreeRDP-3.6.2.mod/winpr/libwinpr/utils/sam.c
+--- FreeRDP-3.6.2/winpr/libwinpr/utils/sam.c	2024-07-04 18:11:26.000000000 +0800
++++ FreeRDP-3.6.2.mod/winpr/libwinpr/utils/sam.c	2024-07-06 09:32:42.240670538 +0800
+@@ -38,7 +38,7 @@
+ #ifdef _WIN32
+ #define WINPR_SAM_FILE "C:\\SAM"
+ #else
+-#define WINPR_SAM_FILE "/etc/winpr/SAM"
++#define WINPR_SAM_FILE "@TERMUX_PREFIX@/etc/winpr/SAM"
+ #endif
+ #define TAG WINPR_TAG("utils")
+ 
+diff -uNr FreeRDP-3.6.2/winpr/libwinpr/wtsapi/wtsapi.c FreeRDP-3.6.2.mod/winpr/libwinpr/wtsapi/wtsapi.c
+--- FreeRDP-3.6.2/winpr/libwinpr/wtsapi/wtsapi.c	2024-07-04 18:11:26.000000000 +0800
++++ FreeRDP-3.6.2.mod/winpr/libwinpr/wtsapi/wtsapi.c	2024-07-06 09:33:23.948670522 +0800
+@@ -748,7 +748,7 @@
  
  	ini = IniFile_New();
  
