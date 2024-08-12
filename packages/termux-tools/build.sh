@@ -3,6 +3,7 @@ TERMUX_PKG_DESCRIPTION="Basic system tools for Termux"
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION="1.43.3"
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/termux/termux-tools/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=24ce5e271d699e22577723d356df8e7fdab2996df4710a13047e20ea7080d94d
 TERMUX_PKG_PLATFORM_INDEPENDENT=true
@@ -27,6 +28,7 @@ termux_step_pre_configure() {
 
 termux_step_post_make_install() {
 	TERMUX_PKG_CONFFILES="$(cat "$TERMUX_PKG_BUILDDIR/conffiles")"
+	$CC $CFLAGS $CPPFLAGS $TERMUX_PKG_BUILDER_DIR/cmd-wrapper.c -o $TERMUX_PREFIX/bin/cmd $LDFLAGS
 }
 
 termux_step_create_debscripts() {
