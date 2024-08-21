@@ -1,0 +1,81 @@
+From 65a7d8f02337f33041a637054530b7051d69d050 Mon Sep 17 00:00:00 2001
+From: Ryan McKinley <ryantxu@gmail.com>
+Date: Mon, 19 Aug 2024 13:31:01 +0300
+Subject: [PATCH] Chore: Fix panic with golang 1.23 (#92055)
+
+---
+ go.mod                | 2 +-
+ go.sum                | 5 ++---
+ go.work.sum           | 2 +-
+ pkg/promlib/go.mod    | 2 +-
+ pkg/promlib/go.sum    | 5 ++---
+ 5 files changed, 9 insertions(+), 13 deletions(-)
+
+diff -uNr grafana/go.mod grafana.mod/go.mod
+--- grafana/go.mod	2024-08-21 11:59:04.250630549 +0800
++++ grafana.mod/go.mod	2024-08-21 12:00:39.498630513 +0800
+@@ -103,7 +103,7 @@
+ 	// Check go.work file for details
+ 	github.com/grafana/grafana/pkg/promlib v0.0.6 // @grafana/observability-metrics
+ 	github.com/grafana/otel-profiling-go v0.5.1 // @grafana/grafana-backend-group
+-	github.com/grafana/pyroscope-go/godeltaprof v0.1.6 // @grafana/observability-traces-and-profiling
++	github.com/grafana/pyroscope-go/godeltaprof v0.1.8 // @grafana/observability-traces-and-profiling
+ 	github.com/grafana/pyroscope/api v0.3.0 // @grafana/observability-traces-and-profiling
+ 	github.com/grafana/tempo v1.5.1-0.20230524121406-1dc1bfe7085b // @grafana/observability-traces-and-profiling
+ 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1 // @grafana/plugins-platform-backend
+diff -uNr grafana/go.sum grafana.mod/go.sum
+--- grafana/go.sum	2024-08-21 11:58:58.006630552 +0800
++++ grafana.mod/go.sum	2024-08-21 12:01:21.538630497 +0800
+@@ -2321,8 +2321,8 @@
+ github.com/grafana/otel-profiling-go v0.5.1/go.mod h1:ftN/t5A/4gQI19/8MoWurBEtC6gFw8Dns1sJZ9W4Tls=
+ github.com/grafana/prometheus-alertmanager v0.25.1-0.20240422145632-c33c6b5b6e6b h1:HCbWyVL6vi7gxyO76gQksSPH203oBJ1MJ3JcG1OQlsg=
+ github.com/grafana/prometheus-alertmanager v0.25.1-0.20240422145632-c33c6b5b6e6b/go.mod h1:01sXtHoRwI8W324IPAzuxDFOmALqYLCOhvSC2fUHWXc=
+-github.com/grafana/pyroscope-go/godeltaprof v0.1.6 h1:nEdZ8louGAplSvIJi1HVp7kWvFvdiiYg3COLlTwJiFo=
+-github.com/grafana/pyroscope-go/godeltaprof v0.1.6/go.mod h1:Tk376Nbldo4Cha9RgiU7ik8WKFkNpfds98aUzS8omLE=
++github.com/grafana/pyroscope-go/godeltaprof v0.1.8 h1:nEdZ8louGAplSvIJi1HVp7kWvFvdiiYg3COLlTwJiFo=
++github.com/grafana/pyroscope-go/godeltaprof v0.1.8/go.mod h1:Tk376Nbldo4Cha9RgiU7ik8WKFkNpfds98aUzS8omLE=
+ github.com/grafana/pyroscope/api v0.3.0 h1:WcVKNZ8JlriJnD28wTkZray0wGo8dGkizSJXnbG7Gd8=
+ github.com/grafana/pyroscope/api v0.3.0/go.mod h1:JggA80ToAAUACYGfwL49XoFk5aN5ecHp4pNIZhlk9Uc=
+ github.com/grafana/regexp v0.0.0-20221122212121-6b5c0a4cb7fd/go.mod h1:M5qHK+eWfAv8VR/265dIuEpL3fNfeC21tXXp9itM24A=
+@@ -2607,7 +2607,6 @@
+ github.com/klauspost/compress v1.15.1/go.mod h1:/3/Vjq9QcHkK5uEr5lBEmyoZ1iFhe47etQ6QUkpK6sk=
+ github.com/klauspost/compress v1.15.9/go.mod h1:PhcZ0MbTNciWF3rruxRgKxI5NkcHHrHUDtV4Yw2GlzU=
+ github.com/klauspost/compress v1.16.7/go.mod h1:ntbaceVETuRiXiv4DpjP66DpAtAGkEQskQzEyD//IeE=
+-github.com/klauspost/compress v1.17.3/go.mod h1:/dCuZOvVtNoHsyb+cuJD3itjs3NbnF6KH9zAO4BDxPM=
+ github.com/klauspost/compress v1.17.8 h1:YcnTYrq7MikUT7k0Yb5eceMmALQPYBW/Xltxn0NAMnU=
+ github.com/klauspost/compress v1.17.8/go.mod h1:Di0epgTjJY877eYKx5yC51cX2A2Vl2ibi7bDH9ttBbw=
+ github.com/klauspost/cpuid/v2 v2.0.9/go.mod h1:FInQzS24/EEf25PyTYn52gqo7WaD8xa0213Md/qVLRg=
+diff -uNr grafana/go.work.sum grafana.mod/go.work.sum
+--- grafana/go.work.sum	2024-08-21 12:00:13.514630523 +0800
++++ grafana.mod/go.work.sum	2024-08-21 12:01:53.386630485 +0800
+@@ -668,6 +668,7 @@
+ github.com/kisielk/errcheck v1.5.0 h1:e8esj/e4R+SAOwFwN+n3zr0nYeCyeweozKfO23MvHzY=
+ github.com/kisielk/gotool v1.0.0 h1:AV2c/EiW3KqPNT9ZKl07ehoAGi4C5/01Cfbblndcapg=
+ github.com/kisielk/sqlstruct v0.0.0-20201105191214-5f3e10d3ab46 h1:veS9QfglfvqAw2e+eeNT/SbGySq8ajECXJ9e4fPoLhY=
++github.com/klauspost/compress v1.17.3/go.mod h1:/dCuZOvVtNoHsyb+cuJD3itjs3NbnF6KH9zAO4BDxPM=
+ github.com/klauspost/cpuid/v2 v2.2.4/go.mod h1:RVVoqg1df56z8g3pUjL/3lE5UfnlrJX8tyFgg4nqhuY=
+ github.com/knadh/koanf v1.5.0 h1:q2TSd/3Pyc/5yP9ldIrSdIz26MCcyNQzW0pEAugLPNs=
+ github.com/knadh/koanf v1.5.0/go.mod h1:Hgyjp4y8v44hpZtPzs7JZfRAW5AhN7KfZcwv1RYggDs=
+diff -uNr grafana/pkg/promlib/go.mod grafana.mod/pkg/promlib/go.mod
+--- grafana/pkg/promlib/go.mod	2024-08-21 11:57:05.230630595 +0800
++++ grafana.mod/pkg/promlib/go.mod	2024-08-21 12:03:22.838630451 +0800
+@@ -52,6 +52,7 @@
+ 	github.com/google/gofuzz v1.2.0 // indirect
+ 	github.com/google/uuid v1.6.0 // indirect
+ 	github.com/gorilla/mux v1.8.1 // indirect
++	github.com/grafana/pyroscope-go/godeltaprof v0.1.8 // indirect
+ 	github.com/grafana/regexp v0.0.0-20221123153739-15dc172cd2db // indirect
+ 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1 // indirect
+ 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.1.0 // indirect
+diff -uNr grafana/pkg/promlib/go.sum grafana.mod/pkg/promlib/go.sum
+--- grafana/pkg/promlib/go.sum	2024-08-21 11:57:18.126630590 +0800
++++ grafana.mod/pkg/promlib/go.sum	2024-08-21 12:04:10.358630432 +0800
+@@ -81,6 +81,8 @@
+ github.com/gorilla/mux v1.8.1 h1:TuBL49tXwgrFYWhqrNgrUNEY92u81SPhu7sTdzQEiWY=
+ github.com/gorilla/mux v1.8.1/go.mod h1:AKf9I4AEqPTmMytcMc0KkNouC66V3BtZ4qD5fmWSiMQ=
+ github.com/grafana/grafana-plugin-sdk-go v0.234.0 h1:p20XfGKB3Z/8aZ6jut+FIU/0cXw+dLkcGFnxJbyFd+k=
++github.com/grafana/pyroscope-go/godeltaprof v0.1.8 h1:iwOtYXeeVSAeYefJNaxDytgjKtUuKQbJqgAIjlnicKg=
++github.com/grafana/pyroscope-go/godeltaprof v0.1.8/go.mod h1:2+l7K7twW49Ct4wFluZD3tZ6e0SjanjcUUBPVD/UuGU=
+ github.com/grafana/regexp v0.0.0-20221123153739-15dc172cd2db h1:7aN5cccjIqCLTzedH7MZzRZt5/lsAHch6Z3L2ZGn5FA=
+ github.com/grafana/regexp v0.0.0-20221123153739-15dc172cd2db/go.mod h1:M5qHK+eWfAv8VR/265dIuEpL3fNfeC21tXXp9itM24A=
+ github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1 h1:qnpSQwGEnkcRpTqNOIR6bJbR0gAorgP9CSALpRcKoAA=
