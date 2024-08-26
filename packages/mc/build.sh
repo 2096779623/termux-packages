@@ -2,12 +2,11 @@ TERMUX_PKG_HOMEPAGE=https://www.midnight-commander.org/
 TERMUX_PKG_DESCRIPTION="Midnight Commander - a powerful file manager"
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="4.8.31"
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_VERSION="4.8.32"
 TERMUX_PKG_SRCURL=http://ftp.midnight-commander.org/mc-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=24191cf8667675b8e31fc4a9d18a0a65bdc0598c2c5c4ea092494cd13ab4ab1a
+TERMUX_PKG_SHA256=4ddc83d1ede9af2363b3eab987f54b87cf6619324110ce2d3a0e70944d1359fe
 TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="glib, libandroid-support, libssh2, ncurses, which"
+TERMUX_PKG_DEPENDS="glib, libandroid-support, libandroid-utimes, libssh2, ncurses, which"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 ac_cv_lib_util_openpty=no
 ac_cv_path_PERL=$TERMUX_PREFIX/bin/perl
@@ -20,3 +19,7 @@ ac_cv_path_ZIP=$TERMUX_PREFIX/bin/zip
 --with-ncurses-libs=$TERMUX_PREFIX/lib
 --with-screen=ncurses
 "
+
+termux_step_pre_configure() {
+	LDFLAGS+=" -landroid-utimes"
+}
