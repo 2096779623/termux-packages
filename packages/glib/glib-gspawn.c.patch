@@ -1,6 +1,7 @@
---- ./glib/gspawn.c.orig	2021-12-10 22:01:14.151714772 +0530
-+++ ./glib/gspawn.c	2021-12-10 22:01:19.781714770 +0530
-@@ -2200,7 +2200,7 @@
+diff -uNr glib-2.82.0/glib/gspawn-posix.c glib-2.82.0.mod/glib/gspawn-posix.c
+--- glib-2.82.0/glib/gspawn-posix.c	2024-08-26 17:17:20.000000000 +0800
++++ glib-2.82.0.mod/glib/gspawn-posix.c	2024-08-27 15:12:53.008969575 +0800
+@@ -1404,7 +1404,7 @@
         * * what to search if PATH is unset. POSIX may, dunno.
         * */
  
@@ -9,7 +10,7 @@
      }
  
    if (search_path || search_path_from_envp)
-@@ -2593,7 +2593,7 @@
+@@ -1815,7 +1815,7 @@
    if (argc + 2 > argv_buffer_len)
      return FALSE;
  

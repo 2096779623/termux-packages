@@ -2,9 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://developer.gnome.org/glib/
 TERMUX_PKG_DESCRIPTION="Library providing core building blocks for libraries and applications written in C"
 TERMUX_PKG_LICENSE="LGPL-2.1"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="2.80.4"
+TERMUX_PKG_VERSION="2.82.0"
 TERMUX_PKG_SRCURL=https://download.gnome.org/sources/glib/${TERMUX_PKG_VERSION%.*}/glib-${TERMUX_PKG_VERSION}.tar.xz
-TERMUX_PKG_SHA256=24e029c5dfc9b44e4573697adf33078a9827c48938555004b3b9096fa4ea034f
+TERMUX_PKG_SHA256=f4c82ada51366bddace49d7ba54b33b4e4d6067afa3008e4847f41cb9b5c38d3
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_DEPENDS="libandroid-support, libffi, libiconv, pcre2, resolv-conf, zlib"
 TERMUX_PKG_BUILD_DEPENDS="gobject-introspection"
@@ -15,6 +15,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -Dintrospection=enabled
 -Druntime_dir=$TERMUX_PREFIX/var/run
 -Dlibmount=disabled
+-Dsysprof=disabled
 -Dman-pages=enabled
 -Dtests=false
 "
@@ -61,6 +62,7 @@ termux_step_host_build() {
 		-type f -print0 | \
 		xargs -0 -r file | grep -E "ELF .+ (executable|shared object)" | \
 		cut -d":" -f1 | xargs -r strip --strip-unneeded --preserve-dates
+	cat /home/builder/.termux-build/glib/build/meson-logs/meson-log.txt
 }
 
 termux_step_pre_configure() {
@@ -71,6 +73,7 @@ termux_step_pre_configure() {
 
 	# Workaround: Remove cyclic dependency between gir and glib
 	sed -i "/Requires:/d" "${TERMUX_PREFIX}/lib/pkgconfig/gobject-introspection-1.0.pc"
+	cat /home/builder/.termux-build/glib/build/meson-logs/meson-log.txt
 }
 
 termux_step_post_make_install() {
@@ -84,10 +87,12 @@ termux_step_post_make_install() {
 
 	# Workaround: Restore deleted line in pre-configure step
 	echo "Requires: glib-2.0 gobject-2.0" >> "${TERMUX_PREFIX}/lib/pkgconfig/gobject-introspection-1.0.pc"
+	cat /home/builder/.termux-build/glib/build/meson-logs/meson-log.txt
 }
 
 termux_step_post_massage() {
 	rm -v lib/pkgconfig/gobject-introspection-1.0.pc
+	cat /home/builder/.termux-build/glib/build/meson-logs/meson-log.txt
 }
 
 termux_step_create_debscripts() {
@@ -99,4 +104,5 @@ termux_step_create_debscripts() {
 	done
 	unset i
 	chmod 644 ./triggers
+	cat /home/builder/.termux-build/glib/build/meson-logs/meson-log.txt
 }
