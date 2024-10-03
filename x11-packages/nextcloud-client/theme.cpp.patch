@@ -1,6 +1,6 @@
 --- a/src/libsync/theme.cpp
 +++ b/src/libsync/theme.cpp
-@@ -20,11 +20,12 @@
+@@ -20,13 +20,14 @@
  #include "common/vfs.h"
  
  #include <QtCore>
@@ -10,7 +10,9 @@
  #include <QStyle>
  #include <QApplication>
  #endif
+ #include <QGuiApplication>
+ #include <QStyleHints>
 +#include <QPainterPath>
  #include <QSslSocket>
  #include <QSvgRenderer>
- 
+ #include <QPainter>
