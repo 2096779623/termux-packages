@@ -2,28 +2,11 @@ TERMUX_PKG_HOMEPAGE=https://typst.app/
 TERMUX_PKG_DESCRIPTION="A new markup-based typesetting system that is powerful and easy to learn"
 TERMUX_PKG_LICENSE="Apache-2.0"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.11.1"
-TERMUX_PKG_REVISION=1
+TERMUX_PKG_VERSION="0.12.0"
 TERMUX_PKG_SRCURL=git+https://github.com/typst/typst
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_DEPENDS="openssl"
-
-termux_step_pre_configure() {
-	termux_setup_rust
-
-	: "${CARGO_HOME:=$HOME/.cargo}"
-	export CARGO_HOME
-
-	cargo vendor
-	patch --silent -p1 \
-		-d ./vendor/time/ \
-		< "$TERMUX_PKG_BUILDER_DIR"/time-items-format_items.diff
-
-	echo "" >> Cargo.toml
-	echo '[patch.crates-io]' >> Cargo.toml
-	echo 'time = { path = "./vendor/time" }' >> Cargo.toml
-}
 
 termux_step_make() {
 	termux_setup_rust
