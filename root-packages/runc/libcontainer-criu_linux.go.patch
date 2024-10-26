@@ -1,0 +1,12 @@
+diff -uNr runc-1.2.0/libcontainer/criu_linux.go runc-1.2.0.mod/libcontainer/criu_linux.go
+--- runc-1.2.0/libcontainer/criu_linux.go	2024-10-22 06:21:47.000000000 +0800
++++ runc-1.2.0.mod/libcontainer/criu_linux.go	2024-10-26 19:45:06.559523404 +0800
+@@ -160,7 +160,7 @@
+ 	} else {
+ 		// If the mentioned annotation has not been found, specify
+ 		// a default CRIU configuration file.
+-		rpcOpts.ConfigFile = proto.String("/etc/criu/runc.conf")
++		rpcOpts.ConfigFile = proto.String("@TERMUX_PREFIX@/etc/criu/runc.conf")
+ 	}
+ }
+ 
