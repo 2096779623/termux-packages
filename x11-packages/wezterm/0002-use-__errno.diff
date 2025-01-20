@@ -1,0 +1,18 @@
+--- a/src/error.rs
++++ b/src/error.rs
+@@ -64,13 +64,13 @@
+         __dfly_error()
+     }
+ 
+-    #[cfg(target_os = "openbsd")]
++    #[cfg(any(target_os = "openbsd", target_os = "android"))]
+     unsafe fn errno_location() -> *const c_int {
+         extern { fn __errno() -> *const c_int; }
+         __errno()
+     }
+ 
+-    #[cfg(any(target_os = "linux", target_os = "android"))]
++    #[cfg(target_os = "linux")]
+     unsafe fn errno_location() -> *const c_int {
+         extern { fn __errno_location() -> *const c_int; }
+         __errno_location()

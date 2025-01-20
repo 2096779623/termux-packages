@@ -1,0 +1,220 @@
+diff -uNr wezterm/Cargo.lock wezterm.mod/Cargo.lock
+--- wezterm/Cargo.lock	2025-01-20 14:36:24.288937923 +0800
++++ wezterm.mod/Cargo.lock	2025-01-20 14:38:31.952937874 +0800
+@@ -448,17 +448,6 @@
+ version = "0.1.0"
+ 
+ [[package]]
+-name = "battery"
+-version = "0.1.0"
+-dependencies = [
+- "anyhow",
+- "config",
+- "luahelper",
+- "starship-battery",
+- "wezterm-dynamic",
+-]
+-
+-[[package]]
+ name = "benchmarking"
+ version = "0.4.13"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+@@ -1486,7 +1475,6 @@
+ version = "0.1.0"
+ dependencies = [
+  "backtrace",
+- "battery",
+  "chrono",
+  "cocoa",
+  "color-funcs",
+@@ -3074,9 +3074,9 @@
+ 
+ [[package]]
+ name = "libz-sys"
+-version = "1.1.20"
++version = "1.1.21"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "d2d16453e800a8cf6dd2fc3eb4bc99b786a9b90c663b8559a5b1a041bf89e472"
++checksum = "df9b68e50e6e0b26f672573834882eb57759f6db9b3be2ea3c35c91188bb4eaa"
+ dependencies = [
+  "cc",
+  "libc",
+@@ -3191,16 +3179,6 @@
+ ]
+ 
+ [[package]]
+-name = "mac_address"
+-version = "1.1.7"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "8836fae9d0d4be2c8b4efcdd79e828a2faa058a90d005abf42f91cac5493a08e"
+-dependencies = [
+- "nix 0.28.0",
+- "winapi",
+-]
+-
+-[[package]]
+ name = "mach2"
+ version = "0.4.2"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+@@ -5205,23 +5183,6 @@
+ checksum = "a8f112729512f8e442d81f95a8a7ddf2b7c6b8a1a6f509a95864142b30cab2d3"
+ 
+ [[package]]
+-name = "starship-battery"
+-version = "0.8.3"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "725bc1c7374f435ef65746eb1a5789cb7d02b8e997f9a3edf979bfb42da68311"
+-dependencies = [
+- "cfg-if",
+- "core-foundation",
+- "lazycell",
+- "libc",
+- "mach2",
+- "nix 0.28.0",
+- "num-traits",
+- "uom",
+- "winapi",
+-]
+-
+-[[package]]
+ name = "static_assertions"
+ version = "1.1.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+@@ -6313,7 +6274,6 @@
+ version = "0.1.0"
+ dependencies = [
+  "getrandom",
+- "mac_address",
+  "once_cell",
+  "serde",
+  "sha2",
+diff -uNr wezterm/env-bootstrap/Cargo.toml wezterm.mod/env-bootstrap/Cargo.toml
+--- wezterm/env-bootstrap/Cargo.toml	2025-01-20 11:51:17.078578804 +0800
++++ wezterm.mod/env-bootstrap/Cargo.toml	2025-01-20 14:54:34.292937507 +0800
+@@ -17,7 +17,7 @@
+ log = "0.4"
+ env_logger = "0.10" # Note: we rely on filter::Builder which is gone in 0.11
+ termwiz = { path = "../termwiz" }
+-battery = { path = "../lua-api-crates/battery" }
++serial-unix = "0.4.0"
+ color-funcs = { path = "../lua-api-crates/color-funcs" }
+ termwiz-funcs = { path = "../lua-api-crates/termwiz-funcs" }
+ logging = { path = "../lua-api-crates/logging" }
+diff -uNr wezterm/env-bootstrap/src/lib.rs wezterm.mod/env-bootstrap/src/lib.rs
+--- wezterm/env-bootstrap/src/lib.rs	2025-01-20 11:51:17.078578804 +0800
++++ wezterm.mod/env-bootstrap/src/lib.rs	2025-01-20 14:54:49.128937501 +0800
+@@ -192,7 +192,6 @@
+ 
+ fn register_lua_modules() {
+     for func in [
+-        battery::register,
+         color_funcs::register,
+         termwiz_funcs::register,
+         logging::register,
+diff -uNr wezterm/lua-api-crates/battery/Cargo.toml wezterm.mod/lua-api-crates/battery/Cargo.toml
+--- wezterm/lua-api-crates/battery/Cargo.toml	2025-01-20 11:51:17.078578804 +0800
++++ wezterm.mod/lua-api-crates/battery/Cargo.toml	1970-01-01 08:00:00.000000000 +0800
+@@ -1,14 +0,0 @@
+-[package]
+-name = "battery"
+-version = "0.1.0"
+-edition = "2021"
+-publish = false
+-
+-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+-
+-[dependencies]
+-anyhow = "1.0"
+-starship-battery = "0.8"
+-config = { path = "../../config" }
+-wezterm-dynamic = { path = "../../wezterm-dynamic" }
+-luahelper = { path = "../../luahelper" }
+diff -uNr wezterm/lua-api-crates/battery/src/lib.rs wezterm.mod/lua-api-crates/battery/src/lib.rs
+--- wezterm/lua-api-crates/battery/src/lib.rs	2025-01-20 11:51:17.078578804 +0800
++++ wezterm.mod/lua-api-crates/battery/src/lib.rs	1970-01-01 08:00:00.000000000 +0800
+@@ -1,56 +0,0 @@
+-use config::lua::get_or_create_module;
+-use config::lua::mlua::{self, Lua};
+-use luahelper::impl_lua_conversion_dynamic;
+-use wezterm_dynamic::{FromDynamic, ToDynamic};
+-
+-pub fn register(lua: &Lua) -> anyhow::Result<()> {
+-    let wezterm_mod = get_or_create_module(lua, "wezterm")?;
+-    wezterm_mod.set("battery_info", lua.create_function(battery_info)?)?;
+-    Ok(())
+-}
+-
+-#[derive(FromDynamic, ToDynamic, Debug)]
+-struct BatteryInfo {
+-    state_of_charge: f32,
+-    vendor: String,
+-    model: String,
+-    state: String,
+-    serial: String,
+-    time_to_full: Option<f32>,
+-    time_to_empty: Option<f32>,
+-}
+-impl_lua_conversion_dynamic!(BatteryInfo);
+-
+-fn battery_info<'lua>(_: &'lua Lua, _: ()) -> mlua::Result<Vec<BatteryInfo>> {
+-    use starship_battery::{Manager, State};
+-    let manager = Manager::new().map_err(mlua::Error::external)?;
+-    let mut result = vec![];
+-    for b in manager.batteries().map_err(mlua::Error::external)? {
+-        let bat = b.map_err(mlua::Error::external)?;
+-        result.push(BatteryInfo {
+-            state_of_charge: bat.state_of_charge().value,
+-            vendor: opt_string(bat.vendor()),
+-            model: opt_string(bat.model()),
+-            serial: opt_string(bat.serial_number()),
+-            state: match bat.state() {
+-                State::Charging => "Charging",
+-                State::Discharging => "Discharging",
+-                State::Empty => "Empty",
+-                State::Full => "Full",
+-                State::Unknown => "Unknown",
+-            }
+-            .to_string(),
+-            time_to_full: bat.time_to_full().map(|q| q.value),
+-            time_to_empty: bat.time_to_empty().map(|q| q.value),
+-        })
+-    }
+-    Ok(result)
+-}
+-
+-fn opt_string(s: Option<&str>) -> String {
+-    match s {
+-        Some(s) => s,
+-        None => "unknown",
+-    }
+-    .to_string()
+-}
+diff -uNr wezterm/wezterm-blob-leases/Cargo.toml wezterm.mod/wezterm-blob-leases/Cargo.toml
+--- wezterm/wezterm-blob-leases/Cargo.toml	2025-01-20 11:51:17.114578804 +0800
++++ wezterm.mod/wezterm-blob-leases/Cargo.toml	2025-01-20 14:55:33.652937484 +0800
+@@ -11,7 +11,6 @@
+ [dependencies]
+ getrandom = "0.2"
+ once_cell = "1.8"
+-mac_address = "1.1"
+ serde = {version="1.0", features=["derive"], optional=true}
+ sha2 = "0.10"
+ tempfile = {version="3.4", optional=true}
+diff -uNr wezterm/wezterm-blob-leases/src/lease_id.rs wezterm.mod/wezterm-blob-leases/src/lease_id.rs
+--- wezterm/wezterm-blob-leases/src/lease_id.rs	2025-01-20 11:51:17.114578804 +0800
++++ wezterm.mod/wezterm-blob-leases/src/lease_id.rs	2025-01-20 14:58:19.708937421 +0800
+@@ -15,14 +15,9 @@
+ }
+ 
+ fn get_mac_address() -> [u8; 6] {
+-    match mac_address::get_mac_address() {
+-        Ok(Some(addr)) => addr.bytes(),
+-        _ => {
+             let mut mac = [0u8; 6];
+             getrandom::getrandom(&mut mac).ok();
+             mac
+-        }
+-    }
+ }
+ 
+ impl LeaseId {
