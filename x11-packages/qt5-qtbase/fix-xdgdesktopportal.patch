@@ -1,0 +1,19 @@
+diff -uNr qtbase-everywhere-src-5.15.16/src/plugins/platformthemes/xdgdesktopportal/main.cpp qtbase-everywhere-src-5.15.16.mod/src/plugins/platformthemes/xdgdesktopportal/main.cpp
+--- qtbase-everywhere-src-5.15.16/src/plugins/platformthemes/xdgdesktopportal/main.cpp	2024-11-08 21:36:08.000000000 +0800
++++ qtbase-everywhere-src-5.15.16.mod/src/plugins/platformthemes/xdgdesktopportal/main.cpp	2025-01-21 10:29:35.224215081 +0800
+@@ -53,13 +53,10 @@
+ 
+ QPlatformTheme *QXdgDesktopPortalThemePlugin::create(const QString &key, const QStringList &params)
+ {
++    Q_UNUSED(key);
+     Q_UNUSED(params);
+-    if (!key.compare(QLatin1String("xdgdesktopportal"), Qt::CaseInsensitive) ||
+-        !key.compare(QLatin1String("flatpak"), Qt::CaseInsensitive) ||
+-        !key.compare(QLatin1String("snap"), Qt::CaseInsensitive))
+-        return new QXdgDesktopPortalTheme;
+ 
+-    return nullptr;
++    return new QXdgDesktopPortalTheme;
+ }
+ 
+ QT_END_NAMESPACE
