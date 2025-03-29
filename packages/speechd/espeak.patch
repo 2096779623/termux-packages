@@ -1,5 +1,6 @@
---- a/src/modules/espeak.c	2022-04-15 04:49:54.448394598 +0000
-+++ b/src/modules/espeak.c	2022-04-15 14:59:04.648322417 +0000
+diff -uNr speechd-0.12.0/src/modules/espeak.c speechd-0.12.0.mod/src/modules/espeak.c
+--- speechd-0.12.0/src/modules/espeak.c	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/src/modules/espeak.c	2025-03-29 21:38:01.476098817 +0800
 @@ -35,7 +35,7 @@
  #include <ctype.h>
  #include <glib.h>
@@ -9,12 +10,3 @@
  /* espeak header file */
  #ifdef ESPEAK_NG_INCLUDE
  #include <espeak-ng/espeak_ng.h>
-@@ -890,7 +890,7 @@
- 
- 			if (!strncmp(identifier, "mb/mb-", 6)) {
- 				voicename = g_strdup(identifier + 6);
--				dash = index(voicename, '-');
-+				dash = strchr(voicename, '-');
- 				if (dash)
- 					/* Ignore "-en" language specification */
- 					*dash = 0;

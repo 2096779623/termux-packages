@@ -1,5 +1,6 @@
---- a/config/modules/baratinoo.conf	2022-04-15 04:49:54.305384622 +0000
-+++ b/config/modules/baratinoo.conf	2022-04-15 14:12:51.719383602 +0000
+diff -uNr speechd-0.12.0/config/modules/baratinoo.conf speechd-0.12.0.mod/config/modules/baratinoo.conf
+--- speechd-0.12.0/config/modules/baratinoo.conf	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/config/modules/baratinoo.conf	2025-03-29 22:19:19.840097871 +0800
 @@ -38,7 +38,7 @@
  # DebugFile specifies the file where the debugging information
  # should be stored (note that the log is overwritten each time
@@ -9,8 +10,9 @@
  
  
  # Copyright (C) 2017 Colomban Wendling <cwendling@hypra.fr>
---- a/config/modules/festival.conf	2022-04-15 04:49:54.321385739 +0000
-+++ b/config/modules/festival.conf	2022-04-15 14:12:51.730383586 +0000
+diff -uNr speechd-0.12.0/config/modules/festival.conf speechd-0.12.0.mod/config/modules/festival.conf
+--- speechd-0.12.0/config/modules/festival.conf	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/config/modules/festival.conf	2025-03-29 22:19:37.644097864 +0800
 @@ -70,7 +70,7 @@
  
  
@@ -20,8 +22,9 @@
  # for debugging purposes. They are numbered in order starting from 0.
  
  # FestivalDebugSaveOutput 0
---- a/config/modules/flite.conf	2022-04-15 04:49:54.321385739 +0000
-+++ b/config/modules/flite.conf	2022-04-15 14:12:51.734383580 +0000
+diff -uNr speechd-0.12.0/config/modules/flite.conf speechd-0.12.0.mod/config/modules/flite.conf
+--- speechd-0.12.0/config/modules/flite.conf	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/config/modules/flite.conf	2025-03-29 22:19:54.272097858 +0800
 @@ -12,7 +12,7 @@
  # DebugFile specifies the file where the debugging information
  # should be stored (note that the log is overwritten each time
@@ -31,8 +34,9 @@
  
  
  # Copyright (C) 2003-2008 Brailcom, o.p.s
---- a/config/modules/ibmtts.conf	2022-04-15 04:49:54.321385739 +0000
-+++ b/config/modules/ibmtts.conf	2022-04-15 14:12:51.737383576 +0000
+diff -uNr speechd-0.12.0/config/modules/ibmtts.conf speechd-0.12.0.mod/config/modules/ibmtts.conf
+--- speechd-0.12.0/config/modules/ibmtts.conf	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/config/modules/ibmtts.conf	2025-03-29 22:20:11.020097852 +0800
 @@ -11,7 +11,7 @@
  # should be stored (note that the log is overwritten each time
  # the module starts)
@@ -42,8 +46,9 @@
  
  
  # The number of samples returned by IBM TTS.
---- a/config/modules/ivona.conf	2022-04-15 04:49:54.321385739 +0000
-+++ b/config/modules/ivona.conf	2022-04-15 14:12:51.741383570 +0000
+diff -uNr speechd-0.12.0/config/modules/ivona.conf speechd-0.12.0.mod/config/modules/ivona.conf
+--- speechd-0.12.0/config/modules/ivona.conf	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/config/modules/ivona.conf	2025-03-29 22:20:32.184097844 +0800
 @@ -14,7 +14,7 @@
  # DebugFile specifies the file where the debugging information
  # should be stored (note that the log is overwritten each time
@@ -53,8 +58,9 @@
  
  # IvonaMinCapLet overrides DefaultCapLetRecognition.  Set to:
  # 1 for "icon" - play icon even if default is "none"
---- a/config/modules/llia_phon-generic.conf	2022-04-15 04:49:54.322385808 +0000
-+++ b/config/modules/llia_phon-generic.conf	2022-04-15 14:12:51.745383564 +0000
+diff -uNr speechd-0.12.0/config/modules/llia_phon-generic.conf speechd-0.12.0.mod/config/modules/llia_phon-generic.conf
+--- speechd-0.12.0/config/modules/llia_phon-generic.conf	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/config/modules/llia_phon-generic.conf	2025-03-29 22:20:46.252097838 +0800
 @@ -15,7 +15,7 @@
  # DebugFile specifies the file where the debugging information
  # should be stored (note that the log is overwritten each time
@@ -64,19 +70,21 @@
  
  # GenericExecuteSynth is the shell command that should be
  # executed in order to say some message. This command must
---- a/config/modules/swift-generic.conf	2022-04-15 04:49:54.322385808 +0000
-+++ b/config/modules/swift-generic.conf	2022-04-15 14:12:51.751383555 +0000
+diff -uNr speechd-0.12.0/config/modules/swift-generic.conf speechd-0.12.0.mod/config/modules/swift-generic.conf
+--- speechd-0.12.0/config/modules/swift-generic.conf	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/config/modules/swift-generic.conf	2025-03-29 22:21:04.052097831 +0800
 @@ -27,7 +27,7 @@
  # can modify this value, see other parameters).
  # The command can be split into more lines, if necessary, using '\'.
  GenericExecuteSynth \
 - "printf %s \'$DATA\' >/tmp/swift-speak.txt && /opt/swift/bin/swift -p speech/rate=$RATE,speech/pitch/shift=$PITCH,tts/content-type=text/plain,tts/text-encoding=utf-8,config/default-voice=$VOICE -f /tmp/swift-speak.txt -o /tmp/swift-speak.wav&& $PLAY_COMMAND /tmp/swift-speak.wav" 
-+ "printf %s \'$DATA\' >@TERMUX_PREFIX@/tmp/swift-speak.txt && /opt/swift/bin/swift -p speech/rate=$RATE,speech/pitch/shift=$PITCH,tts/content-type=text/plain,tts/text-encoding=utf-8,config/default-voice=$VOICE -f @TERMUX_PREFIX@/tmp/swift-speak.txt -o @TERMUX_PREFIX@/tmp/swift-speak.wav&& $PLAY_COMMAND @TERMUX_PREFIX@/tmp/swift-speak.wav" 
++ "printf %s \'$DATA\' >@TERMUX_PREFIX@/tmp/swift-speak.txt && /opt/swift/bin/swift -p speech/rate=$RATE,speech/pitch/shift=$PITCH,tts/content-type=text/plain,tts/text-encoding=utf-8,config/default-voice=$VOICE -f /tmp/swift-speak.txt -o /tmp/swift-speak.wav&& $PLAY_COMMAND /tmp/swift-speak.wav" 
  
  GenericCmdDependency "/opt/swift/bin/swift"
  GenericSoundIconFolder "/usr/share/sounds/sound-icons/"
---- a/config/modules/voxin.conf	2022-04-15 04:49:54.322385808 +0000
-+++ b/config/modules/voxin.conf	2022-04-15 14:12:51.754383550 +0000
+diff -uNr speechd-0.12.0/config/modules/voxin.conf speechd-0.12.0.mod/config/modules/voxin.conf
+--- speechd-0.12.0/config/modules/voxin.conf	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/config/modules/voxin.conf	2025-03-29 22:21:19.536097825 +0800
 @@ -11,7 +11,7 @@
  # should be stored (note that the log is overwritten each time
  # the module starts)
@@ -86,31 +94,34 @@
  
  
  # The number of samples returned by IBM TTS.
---- a/doc/speech-dispatcher-cs.html	2022-04-15 04:49:54.322385808 +0000
-+++ b/doc/speech-dispatcher-cs.html	2022-04-15 14:12:51.783383507 +0000
-@@ -871,7 +871,7 @@
+diff -uNr speechd-0.12.0/doc/speech-dispatcher-cs.html speechd-0.12.0.mod/doc/speech-dispatcher-cs.html
+--- speechd-0.12.0/doc/speech-dispatcher-cs.html	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/doc/speech-dispatcher-cs.html	2025-03-29 22:21:37.076097819 +0800
+@@ -944,7 +944,7 @@
  </p><div class="example">
- <pre class="example">GenericExecuteSynth \
- &quot;epos-say -o --language $LANG --voice $VOICE --init_f $PITCH --init_t $RATE \
+ <pre class="example-preformatted">GenericExecuteSynth \
+ &quot;epos-say -o --language $LANGUAGE --voice $VOICE --init_f $PITCH --init_t $RATE \
 -\&quot;$DATA\&quot; | sed -e s+unknown.*$++ &gt;/tmp/epos-said.wav &amp;&amp; play /tmp/epos-said.wav &gt;/dev/null&quot;
-+\&quot;$DATA\&quot; | sed -e s+unknown.*$++ &gt;@TERMUX_PREFIX@/tmp/epos-said.wav &amp;&amp; play @TERMUX_PREFIX@/tmp/epos-said.wav &gt;/dev/null&quot;
++\&quot;$DATA\&quot; | sed -e s+unknown.*$++ &gt;@TERMUX_PREFIX@/tmp/epos-said.wav &amp;&amp; play /tmp/epos-said.wav &gt;/dev/null&quot;
  </pre></div>
  </dd></dl>
  
---- a/doc/speech-dispatcher-cs.texi	2022-04-15 04:49:54.323385878 +0000
-+++ b/doc/speech-dispatcher-cs.texi	2022-04-15 14:12:51.789383498 +0000
-@@ -744,7 +744,7 @@
+diff -uNr speechd-0.12.0/doc/speech-dispatcher-cs.texi speechd-0.12.0.mod/doc/speech-dispatcher-cs.texi
+--- speechd-0.12.0/doc/speech-dispatcher-cs.texi	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/doc/speech-dispatcher-cs.texi	2025-03-29 22:21:53.024097813 +0800
+@@ -748,7 +748,7 @@
  @example
  GenericExecuteSynth \
- "epos-say -o --language $LANG --voice $VOICE --init_f $PITCH --init_t $RATE \
+ "epos-say -o --language $LANGUAGE --voice $VOICE --init_f $PITCH --init_t $RATE \
 -\"$DATA\" | sed -e s+unknown.*$++ >/tmp/epos-said.wav && play /tmp/epos-said.wav >/dev/null"
-+\"$DATA\" | sed -e s+unknown.*$++ >@TERMUX_PREFIX@/tmp/epos-said.wav && play @TERMUX_PREFIX@/tmp/epos-said.wav >/dev/null"
++\"$DATA\" | sed -e s+unknown.*$++ >@TERMUX_PREFIX@/tmp/epos-said.wav && play /tmp/epos-said.wav >/dev/null"
  @end example
  @end defvr
  
---- a/doc/speech-dispatcher.html	2022-04-15 04:49:54.323385878 +0000
-+++ b/doc/speech-dispatcher.html	2022-04-15 14:12:51.794383491 +0000
-@@ -721,8 +721,8 @@
+diff -uNr speechd-0.12.0/doc/speech-dispatcher.html speechd-0.12.0.mod/doc/speech-dispatcher.html
+--- speechd-0.12.0/doc/speech-dispatcher.html	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/doc/speech-dispatcher.html	2025-03-29 22:23:09.720097783 +0800
+@@ -722,8 +722,8 @@
  </p>
  <div class="example">
  <pre class="example-preformatted">killall -u `whoami` speech-dispatcher
@@ -121,16 +132,16 @@
  </pre></div>
  
  <hr>
-@@ -1154,7 +1154,7 @@
+@@ -1201,7 +1201,7 @@
  </p><div class="example">
  <pre class="example-preformatted">GenericExecuteSynth \
- &quot;epos-say -o --language $LANG --voice $VOICE --init_f $PITCH --init_t $RATE \
+ &quot;epos-say -o --language $LANGUAGE --voice $VOICE --init_f $PITCH --init_t $RATE \
 -\&quot;$DATA\&quot; | sed -e s+unknown.*$++ &gt;/tmp/epos-said.wav &amp;&amp; play /tmp/epos-said.wav &gt;/dev/null&quot;
 +\&quot;$DATA\&quot; | sed -e s+unknown.*$++ &gt;@TERMUX_PREFIX@/tmp/epos-said.wav &amp;&amp; play @TERMUX_PREFIX@/tmp/epos-said.wav &gt;/dev/null&quot;
  </pre></div>
  </dd></dl>
  
-@@ -1582,7 +1582,7 @@
+@@ -1638,7 +1638,7 @@
  <p>Examples of valid address lines are:
  </p><div class="example">
  <pre class="example-preformatted">unix_socket
@@ -139,29 +150,30 @@
  inet_socket
  inet_socket:192.168.0.34
  inet_socket:192.168.0.34:6563
---- a/doc/speech-dispatcher.texi	2022-04-15 04:49:54.323385878 +0000
-+++ b/doc/speech-dispatcher.texi	2022-04-15 14:12:51.804383476 +0000
-@@ -528,8 +528,8 @@
+diff -uNr speechd-0.12.0/doc/speech-dispatcher.texi speechd-0.12.0.mod/doc/speech-dispatcher.texi
+--- speechd-0.12.0/doc/speech-dispatcher.texi	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/doc/speech-dispatcher.texi	2025-03-29 22:24:13.568097759 +0800
+@@ -532,8 +532,8 @@
  
  @example
  killall -u `whoami` speech-dispatcher
 -speech-dispatcher -c unix_socket -S /tmp/my.sock
 -SPEECHD_ADDRESS=unix_socket:/tmp/my.sock spd-say "test"
 +speech-dispatcher -c unix_socket -S @TERMUX_PREFIX@/tmp/my.sock
-+SPEECHD_ADDRESS=unix_socket:@TERMUX_PREFIX@/tmp/my.sock spd-say "test"
++SPEECHD_ADDRESS=unix_socket:@TRERMUX_PREFIX@/tmp/my.sock spd-say "test"
  @end example
  
  @node Troubleshooting, Configuration, Running, User's Documentation
-@@ -911,7 +911,7 @@
+@@ -956,7 +956,7 @@
  @example
  GenericExecuteSynth \
- "epos-say -o --language $LANG --voice $VOICE --init_f $PITCH --init_t $RATE \
+ "epos-say -o --language $LANGUAGE --voice $VOICE --init_f $PITCH --init_t $RATE \
 -\"$DATA\" | sed -e s+unknown.*$++ >/tmp/epos-said.wav && play /tmp/epos-said.wav >/dev/null"
 +\"$DATA\" | sed -e s+unknown.*$++ >@TERMUX_PREFIX@/tmp/epos-said.wav && play @TERMUX_PREFIX@/tmp/epos-said.wav >/dev/null"
  @end example
  @end defvr
  
-@@ -1261,7 +1261,7 @@
+@@ -1315,7 +1315,7 @@
  Examples of valid address lines are:
  @example
  unix_socket
@@ -170,8 +182,9 @@
  inet_socket
  inet_socket:192.168.0.34
  inet_socket:192.168.0.34:6563
---- a/po/cs.po	2022-04-15 04:49:54.441394110 +0000
-+++ b/po/cs.po	2022-04-15 14:12:52.126382997 +0000
+diff -uNr speechd-0.12.0/po/cs.po speechd-0.12.0.mod/po/cs.po
+--- speechd-0.12.0/po/cs.po	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/po/cs.po	2025-03-29 22:26:14.812097713 +0800
 @@ -144,8 +144,8 @@
  
  #: src/server/options.c:110
@@ -181,10 +194,11 @@
 +msgid "if TMPDIR is exported, otherwise to @TERMUX_PREFIX@/tmp/%s\n"
 +msgstr "pokud je exportován TMPDIR, jinak do @TERMUX_PREFIX@/tmp/%s\n"
  
- #: src/server/options.c:113 src/clients/say/options.c:170
+ #: src/server/options.c:113 src/clients/say/options.c:171
  #, c-format
---- a/po/de.po	2022-04-15 04:49:54.441394110 +0000
-+++ b/po/de.po	2022-04-15 14:12:52.130382991 +0000
+diff -uNr speechd-0.12.0/po/de.po speechd-0.12.0.mod/po/de.po
+--- speechd-0.12.0/po/de.po	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/po/de.po	2025-03-29 22:26:14.820097713 +0800
 @@ -144,8 +144,8 @@
  
  #: src/server/options.c:110
@@ -194,10 +208,11 @@
 +msgid "if TMPDIR is exported, otherwise to @TERMUX_PREFIX@/tmp/%s\n"
 +msgstr "falls TMPDIR exportiert wurde, andernfalls nach @TERMUX_PREFIX@/tmp/%s\n"
  
- #: src/server/options.c:113 src/clients/say/options.c:169
+ #: src/server/options.c:113 src/clients/say/options.c:171
  #, c-format
---- a/po/eo.po	2022-04-15 04:49:54.441394110 +0000
-+++ b/po/eo.po	2022-04-15 14:12:52.133382987 +0000
+diff -uNr speechd-0.12.0/po/eo.po speechd-0.12.0.mod/po/eo.po
+--- speechd-0.12.0/po/eo.po	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/po/eo.po	2025-03-29 22:26:14.828097713 +0800
 @@ -130,8 +130,8 @@
  
  #: src/server/options.c:110
@@ -207,10 +222,11 @@
 +msgid "if TMPDIR is exported, otherwise to @TERMUX_PREFIX@/tmp/%s\n"
 +msgstr "se la medivariablo TMPDIR ekzistas, alie en @TERMUX_PREFIX@/tmp/%s\n"
  
- #: src/server/options.c:113 src/clients/say/options.c:169
+ #: src/server/options.c:113 src/clients/say/options.c:171
  #, c-format
---- a/po/fr.po	2022-04-15 04:49:54.441394110 +0000
-+++ b/po/fr.po	2022-04-15 14:12:52.136382982 +0000
+diff -uNr speechd-0.12.0/po/fr.po speechd-0.12.0.mod/po/fr.po
+--- speechd-0.12.0/po/fr.po	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/po/fr.po	2025-03-29 22:26:14.832097713 +0800
 @@ -130,8 +130,8 @@
  
  #: src/server/options.c:110
@@ -220,23 +236,35 @@
 +msgid "if TMPDIR is exported, otherwise to @TERMUX_PREFIX@/tmp/%s\n"
 +msgstr "si TMPDIR est exporté, sinon dans @TERMUX_PREFIX@/tmp/%s\n"
  
- #: src/server/options.c:113 src/clients/say/options.c:169
+ #: src/server/options.c:113 src/clients/say/options.c:171
  #, c-format
---- a/po/hu.po	2022-04-15 04:49:54.441394110 +0000
-+++ b/po/hu.po	2022-04-15 14:12:52.140382976 +0000
-@@ -144,8 +144,8 @@
+diff -uNr speechd-0.12.0/po/hu.po speechd-0.12.0.mod/po/hu.po
+--- speechd-0.12.0/po/hu.po	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/po/hu.po	2025-03-29 22:26:14.840097713 +0800
+@@ -144,7 +144,7 @@
  
  #: src/server/options.c:110
  #, c-format
 -msgid "if TMPDIR is exported, otherwise to /tmp/%s\n"
--msgstr "ha a TMPDIR-t exportálja, különben a / tmp /% s könyvtárba\n"
 +msgid "if TMPDIR is exported, otherwise to @TERMUX_PREFIX@/tmp/%s\n"
-+msgstr "ha a TMPDIR-t exportálja, különben a @TERMUX_PREFIX@/ tmp /% s könyvtárba\n"
+ msgstr "ha a TMPDIR-t exportálja, különben a / tmp /% s könyvtárba\n"
  
- #: src/server/options.c:113 src/clients/say/options.c:169
+ #: src/server/options.c:113 src/clients/say/options.c:171
+diff -uNr speechd-0.12.0/po/ka.po speechd-0.12.0.mod/po/ka.po
+--- speechd-0.12.0/po/ka.po	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/po/ka.po	2025-03-29 22:26:14.844097713 +0800
+@@ -130,7 +130,7 @@
+ 
+ #: src/server/options.c:110
  #, c-format
---- a/po/nb_NO.po	2022-04-15 04:49:54.441394110 +0000
-+++ b/po/nb_NO.po	2022-04-15 14:12:52.147382966 +0000
+-msgid "if TMPDIR is exported, otherwise to /tmp/%s\n"
++msgid "if TMPDIR is exported, otherwise to @TERMUX_PREFIX@/tmp/%s\n"
+ msgstr ""
+ 
+ #: src/server/options.c:113 src/clients/say/options.c:171
+diff -uNr speechd-0.12.0/po/nb_NO.po speechd-0.12.0.mod/po/nb_NO.po
+--- speechd-0.12.0/po/nb_NO.po	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/po/nb_NO.po	2025-03-29 22:26:14.852097713 +0800
 @@ -131,8 +131,8 @@
  
  #: src/server/options.c:110
@@ -246,23 +274,11 @@
 +msgid "if TMPDIR is exported, otherwise to @TERMUX_PREFIX@/tmp/%s\n"
 +msgstr "Hvis TMPDIR eksporteres, ellers til @TERMUX_PREFIX@/tmp/%s\n"
  
- #: src/server/options.c:113 src/clients/say/options.c:169
+ #: src/server/options.c:113 src/clients/say/options.c:171
  #, c-format
---- a/po/pt_BR.po	2022-04-15 04:49:54.441394110 +0000
-+++ b/po/pt_BR.po	2022-04-15 14:12:52.151382960 +0000
-@@ -131,8 +131,8 @@
- 
- #: src/server/options.c:110
- #, c-format
--msgid "if TMPDIR is exported, otherwise to /tmp/%s\n"
--msgstr "se TMPDIR for exportado; senão para /tmp/%s\n"
-+msgid "if TMPDIR is exported, otherwise to @TERMUX_PREFIX@/tmp/%s\n"
-+msgstr "se TMPDIR for exportado; senão para @TERMUX_PREFIX@/tmp/%s\n"
- 
- #: src/server/options.c:113 src/clients/say/options.c:169
- #, c-format
---- a/po/pt.po	2022-04-15 04:49:54.441394110 +0000
-+++ b/po/pt.po	2022-04-15 14:12:52.155382954 +0000
+diff -uNr speechd-0.12.0/po/pt.po speechd-0.12.0.mod/po/pt.po
+--- speechd-0.12.0/po/pt.po	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/po/pt.po	2025-03-29 22:26:14.860097713 +0800
 @@ -130,8 +130,8 @@
  
  #: src/server/options.c:110
@@ -272,21 +288,39 @@
 +msgid "if TMPDIR is exported, otherwise to @TERMUX_PREFIX@/tmp/%s\n"
 +msgstr "se TMPDIR for exportado; senão para @TERMUX_PREFIX@/tmp/%s\n"
  
- #: src/server/options.c:113 src/clients/say/options.c:169
+ #: src/server/options.c:113 src/clients/say/options.c:171
  #, c-format
---- a/po/ru.po	2022-04-15 04:49:54.441394110 +0000
-+++ b/po/ru.po	2022-04-15 14:12:52.159382948 +0000
-@@ -129,7 +129,7 @@
+diff -uNr speechd-0.12.0/po/pt_BR.po speechd-0.12.0.mod/po/pt_BR.po
+--- speechd-0.12.0/po/pt_BR.po	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/po/pt_BR.po	2025-03-29 22:26:14.860097713 +0800
+@@ -131,8 +131,8 @@
  
  #: src/server/options.c:110
  #, c-format
 -msgid "if TMPDIR is exported, otherwise to /tmp/%s\n"
+-msgstr "se TMPDIR for exportado; senão para /tmp/%s\n"
 +msgid "if TMPDIR is exported, otherwise to @TERMUX_PREFIX@/tmp/%s\n"
- msgstr ""
++msgstr "se TMPDIR for exportado; senão para @TERMUX_PREFIX@/tmp/%s\n"
  
- #: src/server/options.c:113 src/clients/say/options.c:169
---- a/po/speech-dispatcher.pot	2022-04-15 04:49:54.441394110 +0000
-+++ b/po/speech-dispatcher.pot	2022-04-15 14:12:52.162382944 +0000
+ #: src/server/options.c:113 src/clients/say/options.c:171
+ #, c-format
+diff -uNr speechd-0.12.0/po/ru.po speechd-0.12.0.mod/po/ru.po
+--- speechd-0.12.0/po/ru.po	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/po/ru.po	2025-03-29 22:26:14.864097713 +0800
+@@ -133,8 +133,8 @@
+ 
+ #: src/server/options.c:110
+ #, c-format
+-msgid "if TMPDIR is exported, otherwise to /tmp/%s\n"
+-msgstr "если TMPDIR была определена, иначе в /tmp/%s\n"
++msgid "if TMPDIR is exported, otherwise to @TERMUX_PREFIX@/tmp/%s\n"
++msgstr "если TMPDIR была определена, иначе в @TERMUX_PREFIX@/tmp/%s\n"
+ 
+ #: src/server/options.c:113 src/clients/say/options.c:171
+ #, c-format
+diff -uNr speechd-0.12.0/po/speech-dispatcher.pot speechd-0.12.0.mod/po/speech-dispatcher.pot
+--- speechd-0.12.0/po/speech-dispatcher.pot	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/po/speech-dispatcher.pot	2025-03-29 22:26:50.708097699 +0800
 @@ -126,7 +126,7 @@
  
  #: src/server/options.c:110
@@ -295,20 +329,50 @@
 +msgid "if TMPDIR is exported, otherwise to @TERMUX_PREFIX@/tmp/%s\n"
  msgstr ""
  
- #: src/server/options.c:113 src/clients/say/options.c:169
---- a/src/api/c/libspeechd.c	2022-04-15 04:49:54.445394389 +0000
-+++ b/src/api/c/libspeechd.c	2022-04-15 14:12:52.176382923 +0000
-@@ -239,7 +239,7 @@
+ #: src/server/options.c:113 src/clients/say/options.c:171
+diff -uNr speechd-0.12.0/po/sv.po speechd-0.12.0.mod/po/sv.po
+--- speechd-0.12.0/po/sv.po	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/po/sv.po	2025-03-29 22:26:14.868097713 +0800
+@@ -130,8 +130,8 @@
+ 
+ #: src/server/options.c:110
+ #, c-format
+-msgid "if TMPDIR is exported, otherwise to /tmp/%s\n"
+-msgstr "om TMPDIR exporteras, annars till /tmp/%s\n"
++msgid "if TMPDIR is exported, otherwise to @TERMUX_PREFIX@/tmp/%s\n"
++msgstr "om TMPDIR exporteras, annars till @TERMUX_PREFIX@/tmp/%s\n"
+ 
+ #: src/server/options.c:113 src/clients/say/options.c:171
+ #, c-format
+diff -uNr speechd-0.12.0/po/tr.po speechd-0.12.0.mod/po/tr.po
+--- speechd-0.12.0/po/tr.po	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/po/tr.po	2025-03-29 22:26:14.872097713 +0800
+@@ -130,8 +130,8 @@
+ 
+ #: src/server/options.c:110
+ #, c-format
+-msgid "if TMPDIR is exported, otherwise to /tmp/%s\n"
+-msgstr "TMPDIR ayarlanmamışsa /tmp/%s kullanılır\n"
++msgid "if TMPDIR is exported, otherwise to @TERMUX_PREFIX@/tmp/%s\n"
++msgstr "TMPDIR ayarlanmamışsa @TERMUX_PREFIX@/tmp/%s kullanılır\n"
+ 
+ #: src/server/options.c:113 src/clients/say/options.c:171
+ #, c-format
+diff -uNr speechd-0.12.0/src/api/c/libspeechd.c speechd-0.12.0.mod/src/api/c/libspeechd.c
+--- speechd-0.12.0/src/api/c/libspeechd.c	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/src/api/c/libspeechd.c	2025-03-29 22:27:07.288097693 +0800
+@@ -257,7 +257,7 @@
  {
  #ifdef LIBSPEECHD_DEBUG
  	if (!spd_debug) {
 -		spd_debug = fopen("/tmp/libspeechd.log", "w");
 +		spd_debug = fopen("@TERMUX_PREFIX@/tmp/libspeechd.log", "w");
  		if (spd_debug == NULL)
- 			SPD_FATAL("COULDN'T ACCES FILE INTENDED FOR DEBUG");
+ 			SPD_FATAL("COULDN'T ACCESS FILE INTENDED FOR DEBUG");
  
---- a/src/api/python/speechd_config/config.py	2022-04-15 04:49:54.446394459 +0000
-+++ b/src/api/python/speechd_config/config.py	2022-04-15 14:12:52.195382894 +0000
+diff -uNr speechd-0.12.0/src/api/python/speechd_config/config.py speechd-0.12.0.mod/src/api/python/speechd_config/config.py
+--- speechd-0.12.0/src/api/python/speechd_config/config.py	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/src/api/python/speechd_config/config.py	2025-03-29 22:27:22.016097687 +0800
 @@ -464,7 +464,7 @@
          if 'TMPDIR' in os.environ:
              tmpdir = os.environ['TMPDIR']
@@ -318,8 +382,9 @@
          debugdir_path = os.path.join(tmpdir, "speechd-debug")
          date = datetime.date.today()
          debugarchive_path = os.path.join(tmpdir, "speechd-debug-%d-%d-%d.tar.gz" %
---- a/src/clients/spdsend/server.c	2022-04-15 04:49:54.446394459 +0000
-+++ b/src/clients/spdsend/server.c	2022-04-15 14:12:52.225382849 +0000
+diff -uNr speechd-0.12.0/src/clients/spdsend/server.c speechd-0.12.0.mod/src/clients/spdsend/server.c
+--- speechd-0.12.0/src/clients/spdsend/server.c	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/src/clients/spdsend/server.c	2025-03-29 22:27:39.292097681 +0800
 @@ -340,7 +340,7 @@
  static const char *server_socket_name()
  {
@@ -329,9 +394,10 @@
  		system_error("memory allocation");
  	return name;
  }
---- a/src/modules/festival.c	2022-04-15 04:49:54.448394598 +0000
-+++ b/src/modules/festival.c	2022-04-15 14:12:52.249382814 +0000
-@@ -347,7 +347,7 @@
+diff -uNr speechd-0.12.0/src/modules/festival.c speechd-0.12.0.mod/src/modules/festival.c
+--- speechd-0.12.0/src/modules/festival.c	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/src/modules/festival.c	2025-03-29 22:28:17.848097666 +0800
+@@ -348,7 +348,7 @@
  
  	/* TODO: Solve this */
  	//    DBG("Removing junk files in tmp/");
@@ -340,7 +406,7 @@
  	return 0;
  }
  
-@@ -575,7 +575,7 @@
+@@ -577,7 +577,7 @@
  						char filename_debug
  						    [256];
  						sprintf(filename_debug,
@@ -349,7 +415,7 @@
  							debug_count++);
  						save_FT_Wave_snd(fwave,
  								 filename_debug);
-@@ -716,7 +716,7 @@
+@@ -720,7 +720,7 @@
  			if (FestivalDebugSaveOutput) {
  				char filename_debug[256];
  				sprintf(filename_debug,
@@ -358,8 +424,9 @@
  					debug_count++);
  				save_FT_Wave_snd(fwave, filename_debug);
  			}
---- a/src/server/options.c	2022-04-15 04:49:54.443394249 +0000
-+++ b/src/server/options.c	2022-04-15 14:12:52.299382739 +0000
+diff -uNr speechd-0.12.0/src/server/options.c speechd-0.12.0.mod/src/server/options.c
+--- speechd-0.12.0/src/server/options.c	2025-02-24 05:19:19.000000000 +0800
++++ speechd-0.12.0.mod/src/server/options.c	2025-03-29 22:28:35.000097659 +0800
 @@ -107,7 +107,7 @@
  	printf(_("Output debugging information into $TMPDIR/%s\n"),
  	       "speechd-debug");

@@ -15,21 +15,21 @@ Mitigates https://github.com/termux/termux-packages/issues/15425
  
 --- a/src/api/c/libspeechd.c
 +++ b/src/api/c/libspeechd.c
-@@ -620,9 +620,11 @@ void spd_close(SPDConnection * connectio
+@@ -652,9 +652,11 @@
  		free(connection->td);
  	}
  
 +#ifndef __ANDROID__
  	/* close the socket */
- 	if (connection->stream != NULL)
- 		fclose(connection->stream);
+ 	if (connection->socket >= 0) {
+ 		close(connection->socket);
 +#endif
- 	connection->stream = NULL;
- 
- 	pthread_mutex_unlock(&connection->ssip_mutex);
+ 		connection->socket = -1;
+ 		connection->stream = NULL;
+ 	}
 --- a/src/server/configuration.c
 +++ b/src/server/configuration.c
-@@ -516,7 +516,7 @@ void load_default_global_set_options()
+@@ -517,7 +517,7 @@
  	if (!SpeechdOptions.localhost_access_only_set)
  		SpeechdOptions.localhost_access_only = 1;
  	if (!SpeechdOptions.server_timeout_set)
