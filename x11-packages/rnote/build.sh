@@ -2,10 +2,9 @@ TERMUX_PKG_HOMEPAGE="https://github.com/flxzt/rnote"
 TERMUX_PKG_DESCRIPTION="An infinite canvas vector-based drawing application for handwritten notes"
 TERMUX_PKG_LICENSE="GPL-3.0"
 TERMUX_PKG_MAINTAINER="@EDLLT"
-TERMUX_PKG_VERSION="0.11.0"
-TERMUX_PKG_REVISION=2
+TERMUX_PKG_VERSION="0.12.0"
 TERMUX_PKG_SRCURL="https://github.com/flxzt/rnote/archive/refs/tags/v${TERMUX_PKG_VERSION}.tar.gz"
-TERMUX_PKG_SHA256=b133d4331963d3c09d3a7477f60fc4c5072471dcbf459379a593ca1724164af4
+TERMUX_PKG_SHA256=ec3d9df210b5b5336b5abdf5724d14fe7a575c5eb1713ddacf3083ea9b387267
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_DEPENDS="gdk-pixbuf, gettext, glib, graphene, gtk4, hicolor-icon-theme, libadwaita, libcairo, pipewire, pango, poppler"
 TERMUX_PKG_BUILD_DEPENDS="libiconv"
@@ -13,11 +12,11 @@ TERMUX_PKG_PYTHON_BUILD_DEPS="toml2json"
 
 __fetch_gettext_rs() {
 	# Latest version of gettext-sys, provided by the gettext-rs crate
-	local crate_version=0.21.4
+	local crate_version=0.22.5
 	local -a crate=(
 		"https://github.com/gettext-rs/gettext-rs/archive/refs/tags/gettext-sys-$crate_version.tar.gz" # Upstream URL
 		"$TERMUX_PKG_CACHEDIR/gettext-v$crate_version.tar.gz"                                          # Local save path
-		'211773408ab61880b94a0ea680785fc21fad307cd42594d547cf5a056627fcda'                             # SHA256 checksum
+		'2ce9ec83aac58434cc3b3dfe05764ce5a93f220eabd112646ce1beccda53fe4b'                             # SHA256 checksum
 	)
 
 	# Fetch latest gettext from upstream
