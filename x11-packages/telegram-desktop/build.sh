@@ -4,9 +4,9 @@ TERMUX_PKG_DESCRIPTION="Telegram Desktop Client"
 TERMUX_PKG_LICENSE="custom"
 TERMUX_PKG_LICENSE_FILE="LICENSE, LEGAL"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=5.14.1
+TERMUX_PKG_VERSION=5.14.2
 TERMUX_PKG_SRCURL=https://github.com/telegramdesktop/tdesktop/releases/download/v$TERMUX_PKG_VERSION/tdesktop-$TERMUX_PKG_VERSION-full.tar.gz
-TERMUX_PKG_SHA256=42d3130292b21928f04e39539f4e7358206bde913ea6e5171b0ffdeb38b9872e
+TERMUX_PKG_SHA256=8a3b2570475584317651c76407176ad884f073b1eacaf07333c9037806279f02
 TERMUX_PKG_DEPENDS="abseil-cpp, boost, ffmpeg, glib, hicolor-icon-theme, hunspell, kf6-kcoreaddons, libandroid-shmem, libc++, libdispatch, libdrm, liblz4, libminizip, protobuf, librnnoise, libsigc++-3.0, libx11, libxcomposite, libxdamage, libxrandr, libxtst, openal-soft, opengl, openh264, openssl, pipewire, pulseaudio, qt6-qtbase, qt6-qtimageformats, qt6-qtsvg, xxhash, zlib"
 TERMUX_PKG_BUILD_DEPENDS="ada, boost-headers, glib-cross, qt6-qtbase-cross-tools"
 TERMUX_PKG_VERSIONED_GIR=false
@@ -25,6 +25,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DTDESKTOP_API_HASH=d524b414d21f4d37f08684c1df41ac9c
 -DLIBTGVOIP_DISABLE_ALSA=ON
 -DLIBTGVOIP_DISABLE_PULSEAUDIO=OFF
+-DLZ4_DIR="$TERMUX_PREFIX/lib/cmake/lz4"
 "
 
 __tg_owt_fetch_source() {
