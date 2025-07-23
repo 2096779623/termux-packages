@@ -1,0 +1,15 @@
+diff -uNr ebusd-25.1/src/lib/utils/thread.cpp ebusd-25.1.bak/src/lib/utils/thread.cpp
+--- ebusd-25.1/src/lib/utils/thread.cpp	2025-04-14 00:14:35.000000000 +0800
++++ ebusd-25.1.bak/src/lib/utils/thread.cpp	2025-07-22 10:47:17.432460457 +0800
+@@ -32,7 +32,11 @@
+ 
+ Thread::~Thread() {
+   if (m_started) {
++#ifdef __ANDROID__
++    pthread_kill(m_threadid, SIGUSR2);
++#elif
+     pthread_cancel(m_threadid);
++#endif
+     pthread_detach(m_threadid);
+   }
+ }

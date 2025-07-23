@@ -1,0 +1,11 @@
+diff -uNr ebusd-25.1/src/lib/utils/log.cpp ebusd-25.1.mod/src/lib/utils/log.cpp
+--- ebusd-25.1/src/lib/utils/log.cpp	2025-04-14 00:14:35.000000000 +0800
++++ ebusd-25.1.mod/src/lib/utils/log.cpp	2025-07-23 15:24:21.436893940 +0800
+@@ -20,6 +20,7 @@
+ #  include <config.h>
+ #endif
+ 
++#include "getsubopt.h"
+ #include "lib/utils/log.h"
+ #include <stdlib.h>
+ #include <stdio.h>

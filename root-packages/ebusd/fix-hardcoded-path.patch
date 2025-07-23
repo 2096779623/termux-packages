@@ -1,0 +1,149 @@
+diff -uNr ebusd-25.1/src/ebusd/main.cpp ebusd-25.1.mod/src/ebusd/main.cpp
+--- ebusd-25.1/src/ebusd/main.cpp	2025-04-14 00:14:35.000000000 +0800
++++ ebusd-25.1.mod/src/ebusd/main.cpp	2025-07-23 15:35:36.180893683 +0800
+@@ -98,7 +98,7 @@
+ 
+   // Change the current working directory. This prevents the current
+   // directory from being locked; hence not being able to remove it.
+-  if (chdir("/tmp") < 0) {
++  if (chdir("@TERMUX_PREFIX@/tmp") < 0) {
+     logError(lf_main, "daemon chdir() failed, exiting");
+     exit(EXIT_FAILURE);
+   }
+diff -uNr ebusd-25.1/src/ebusd/main.h ebusd-25.1.mod/src/ebusd/main.h
+--- ebusd-25.1/src/ebusd/main.h	2025-04-14 00:14:35.000000000 +0800
++++ ebusd-25.1.mod/src/ebusd/main.h	2025-07-23 15:35:25.144893687 +0800
+@@ -84,24 +84,24 @@
+   bool foreground;  //!< run in foreground
+   bool enableHex;  //!< enable hex/inject/answer commands
+   bool enableDefine;  //!< enable define command
+-  const char* pidFile;  //!< PID file name [/var/run/ebusd.pid]
++  const char* pidFile;  //!< PID file name [@TERMUX_PREFIX@/var/run/ebusd.pid]
+   uint16_t port;  //!< port to listen for command line connections [8888]
+   bool localOnly;  //!< listen on 127.0.0.1 interface only
+   uint16_t httpPort;  //!< optional port to listen for HTTP connections, 0 to disable [0]
+-  const char* htmlPath;  //!< path for HTML files served by the HTTP port [/var/ebusd/html]
++  const char* htmlPath;  //!< path for HTML files served by the HTTP port [@TERMUX_PREFIX@/var/ebusd/html]
+   bool updateCheck;  //!< perform automatic update check
+ 
+-  const char* logFile;  //!< log file name [/var/log/ebusd.log]
++  const char* logFile;  //!< log file name [@TERMUX_PREFIX@/var/log/ebusd.log]
+   int logAreas;  //!< log areas [all]
+   LogLevel logLevel;  //!< log level [notice]
+   bool multiLog;  //!< multiple log levels adjusted with --log=...
+ 
+   unsigned int logRaw;  //!< raw log each received/sent byte on the bus (1=messages, 2=bytes)
+-  const char* logRawFile;  //!< name of raw log file [/var/log/ebusd.log]
++  const char* logRawFile;  //!< name of raw log file [@TERMUX_PREFIX@/var/log/ebusd.log]
+   unsigned int logRawSize;  //!< maximum size of raw log file in kB [100]
+ 
+   bool dump;  //!< binary dump received bytes
+-  const char* dumpFile;  //!< name of dump file [/tmp/ebusd_dump.bin]
++  const char* dumpFile;  //!< name of dump file [@TERMUX_PREFIX@/tmp/ebusd_dump.bin]
+   unsigned int dumpSize;  //!< maximum size of dump file in kB [100]
+   bool dumpFlush;  //!< flush each byte
+ } options_t;
+diff -uNr ebusd-25.1/src/ebusd/main_args.cpp ebusd-25.1.mod/src/ebusd/main_args.cpp
+--- ebusd-25.1/src/ebusd/main_args.cpp	2025-04-14 00:14:35.000000000 +0800
++++ ebusd-25.1.mod/src/ebusd/main_args.cpp	2025-07-23 15:37:33.808893638 +0800
+@@ -72,7 +72,7 @@
+   .port = 8888,
+   .localOnly = false,
+   .httpPort = 0,
+-  .htmlPath = "/var/" PACKAGE "/html",
++  .htmlPath = "@TERMUX_PREFIX@/var/" PACKAGE "/html",
+   .updateCheck = true,
+ 
+   .logFile = PACKAGE_LOGFILE,
+@@ -85,7 +85,7 @@
+   .logRawSize = 100,
+ 
+   .dump = false,
+-  .dumpFile = "/tmp/" PACKAGE "_dump.bin",
++  .dumpFile = "@TERMUX_PREFIX@/tmp/" PACKAGE "_dump.bin",
+   .dumpSize = 100,
+   .dumpFlush = false
+ };
+@@ -198,7 +198,7 @@
+   {"port",           'p',      "PORT",     0, "Listen for command line connections on PORT [8888]"},
+   {"localhost",      O_LOCAL,  nullptr,    0, "Listen for command line connections on 127.0.0.1 interface only"},
+   {"httpport",       O_HTTPPT, "PORT",     0, "Listen for HTTP connections on PORT, 0 to disable [0]"},
+-  {"htmlpath",       O_HTMLPA, "PATH",     0, "Path for HTML files served by HTTP port [/var/ebusd/html]"},
++  {"htmlpath",       O_HTMLPA, "PATH",     0, "Path for HTML files served by HTTP port [@TERMUX_PREFIX@/var/ebusd/html]"},
+   {"updatecheck",    O_UPDCHK, "MODE",     0, "Set automatic update check to MODE (on|off) [on]"},
+ 
+   {nullptr,          0,        nullptr,    0, "Log options:"},
+@@ -219,7 +219,7 @@
+ 
+   {nullptr,          0,        nullptr,    0, "Binary dump options:"},
+   {"dump",           'D',      nullptr,    0, "Enable binary dump of received bytes"},
+-  {"dumpfile",       O_DMPFIL, "FILE",     0, "Dump received bytes to FILE [/tmp/" PACKAGE "_dump.bin]"},
++  {"dumpfile",       O_DMPFIL, "FILE",     0, "Dump received bytes to FILE [@TERMUX_PREFIX@/tmp/" PACKAGE "_dump.bin]"},
+   {"dumpsize",       O_DMPSIZ, "SIZE",     0, "Make dump file no larger than SIZE kB [100]"},
+   {"dumpflush",      O_DMPFLU, nullptr,    0, "Flush each byte"},
+ 
+@@ -437,7 +437,7 @@
+   case O_DEFCMD:  // --enabledefine
+     opt->enableDefine = true;
+     break;
+-  case O_PIDFIL:  // --pidfile=/var/run/ebusd.pid
++  case O_PIDFIL:  // --pidfile=@TERMUX_PREFIX@/var/run/ebusd.pid
+     if (arg == nullptr || arg[0] == 0 || strcmp("/", arg) == 0) {
+       argParseError(parseOpt, "invalid pidfile");
+       return EINVAL;
+@@ -463,7 +463,7 @@
+     }
+     opt->httpPort = (uint16_t)value;
+     break;
+-  case O_HTMLPA:  // --htmlpath=/var/ebusd/html
++  case O_HTMLPA:  // --htmlpath=@TERMUX_PREFIX@/var/ebusd/html
+     if (arg == nullptr || arg[0] == 0 || strcmp("/", arg) == 0) {
+       argParseError(parseOpt, "invalid htmlpath");
+       return EINVAL;
+@@ -486,7 +486,7 @@
+     break;
+ 
+   // Log options:
+-  case 'l':  // --logfile=/var/log/ebusd.log
++  case 'l':  // --logfile=@TERMUX_PREFIX@/var/log/ebusd.log
+     if (arg == nullptr || strcmp("/", arg) == 0) {
+       argParseError(parseOpt, "invalid logfile");
+       return EINVAL;
+@@ -555,7 +555,7 @@
+   case O_RAW:  // --lograwdata
+     opt->logRaw = arg && strcmp("bytes", arg) == 0 ? 2 : 1;
+     break;
+-  case O_RAWFIL:  // --lograwdatafile=/var/log/ebusd.log
++  case O_RAWFIL:  // --lograwdatafile=@TERMUX_PREFIX@/var/log/ebusd.log
+     if (arg == nullptr || arg[0] == 0 || strcmp("/", arg) == 0) {
+       argParseError(parseOpt, "invalid lograwdatafile");
+       return EINVAL;
+@@ -575,7 +575,7 @@
+   case 'D':  // --dump
+     opt->dump = true;
+     break;
+-  case O_DMPFIL:  // --dumpfile=/tmp/ebusd_dump.bin
++  case O_DMPFIL:  // --dumpfile=@TERMUX_PREFIX@/tmp/ebusd_dump.bin
+     if (arg == nullptr || arg[0] == 0 || strcmp("/", arg) == 0) {
+       argParseError(parseOpt, "invalid dumpfile");
+       return EINVAL;
+diff -uNr ebusd-25.1/src/tools/ebusfeed.cpp ebusd-25.1.mod/src/tools/ebusfeed.cpp
+--- ebusd-25.1/src/tools/ebusfeed.cpp	2025-04-14 00:14:35.000000000 +0800
++++ ebusd-25.1.mod/src/tools/ebusfeed.cpp	2025-07-23 15:34:27.216893709 +0800
+@@ -55,14 +55,14 @@
+   "/dev/ttyUSB60",  // device
+   10000,  // time
+ 
+-  "/tmp/ebus_dump.bin",  // dumpFile
++  "@TERMUX_PREFIX@/tmp/ebus_dump.bin",  // dumpFile
+ };
+ 
+ /** the definition of the known program arguments. */
+ static const ebusd::argDef argDefs[] = {
+   {"device", 'd', "DEV",     0, "Write to DEV (serial device) [/dev/ttyUSB60]"},
+   {"time",   't', "USEC",    0, "Delay each byte by USEC us [10000]"},
+-  {nullptr, 0x100, "DUMPFILE", af_optional, "Dump file to read [/tmp/ebus_dump.bin]"},
++  {nullptr, 0x100, "DUMPFILE", af_optional, "Dump file to read [@TERMUX_PREFIX@/tmp/ebus_dump.bin]"},
+ 
+   {nullptr,    0, nullptr,   0, nullptr},
+ };
