@@ -13,7 +13,7 @@ termux_step_make_install() {
 	install -Dm700 -t $TERMUX_PREFIX/bin stemwords
 	install -Dm600 -t $TERMUX_PREFIX/include include/libstemmer.h
 	install -Dm600 -t $TERMUX_PREFIX/lib libstemmer.a
-	ls -lah
+	find . -name *.so
 	local f
 	for f in libstemmer.so*; do
 		if test -L "${f}"; then
