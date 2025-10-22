@@ -1,6 +1,6 @@
-diff -uNr oma-1.22.1/apt-auth-config/src/lib.rs oma-1.22.1.mod/apt-auth-config/src/lib.rs
---- oma-1.22.1/apt-auth-config/src/lib.rs	2025-10-15 18:03:09.000000000 +0800
-+++ oma-1.22.1.mod/apt-auth-config/src/lib.rs	2025-10-15 22:43:25.891625437 +0800
+diff -uNr oma-1.22.3/apt-auth-config/src/lib.rs oma-1.22.3.mod/apt-auth-config/src/lib.rs
+--- oma-1.22.3/apt-auth-config/src/lib.rs	2025-10-21 17:36:42.000000000 +0800
++++ oma-1.22.3.mod/apt-auth-config/src/lib.rs	2025-10-22 19:21:00.280831584 +0800
 @@ -94,7 +94,7 @@
  pub struct AuthConfig(pub Vec<(AuthUrl, Authenticator)>);
  
@@ -10,9 +10,18 @@ diff -uNr oma-1.22.1/apt-auth-config/src/lib.rs oma-1.22.1.mod/apt-auth-config/s
      pub fn system(sysroot: impl AsRef<Path>) -> Result<Self, AuthConfigError> {
          Self::from_path(sysroot.as_ref().join("etc/apt"))
      }
-diff -uNr oma-1.22.1/i18n/en-US/oma.ftl oma-1.22.1.mod/i18n/en-US/oma.ftl
---- oma-1.22.1/i18n/en-US/oma.ftl	2025-10-15 18:03:09.000000000 +0800
-+++ oma-1.22.1.mod/i18n/en-US/oma.ftl	2025-10-15 22:43:25.895625437 +0800
+diff -uNr oma-1.22.3/i18n/en-US/oma.ftl oma-1.22.3.mod/i18n/en-US/oma.ftl
+--- oma-1.22.3/i18n/en-US/oma.ftl	2025-10-21 17:36:42.000000000 +0800
++++ oma-1.22.3.mod/i18n/en-US/oma.ftl	2025-10-22 19:22:05.708831559 +0800
+@@ -69,7 +69,7 @@
+ battery = You seem to be on battery power. oma may deplete the battery rather quickly during the transaction. It is recommended to plug in your power supply to prevent accidental power loss.
+ continue = Do you still wish to continue?
+ changing-system = oma is modifying your system.
+-failed-to-lock-oma = Another oma process lock (/run/lock/oma.lock) already exists
++failed-to-lock-oma = Another oma process lock ($TERMUX_PREFIX/run/lock/oma.lock) already exists
+ # main
+ user-aborted-op = User aborted the operation.
+ # formatter
 @@ -130,7 +130,7 @@
  can-not-checksum = Failed to parse SHA256 checksum.
  failed-to-open-to-checksum = BUG: Failed to open { $path } for checksum verification. Please report this issue at https://github.com/AOSC-Dev/oma.
@@ -31,9 +40,18 @@ diff -uNr oma-1.22.1/i18n/en-US/oma.ftl oma-1.22.1.mod/i18n/en-US/oma.ftl
  no-check-dbus-tips = oma is configured to ignore system operational status, which means that oma will not detect critical system states such as power supplies and user sessions. System failures may occur.
  oma-history-is-empty = oma history is empty.
  tui-pending = Pending
-diff -uNr oma-1.22.1/i18n/zh-CN/oma.ftl oma-1.22.1.mod/i18n/zh-CN/oma.ftl
---- oma-1.22.1/i18n/zh-CN/oma.ftl	2025-10-15 18:03:09.000000000 +0800
-+++ oma-1.22.1.mod/i18n/zh-CN/oma.ftl	2025-10-15 22:43:25.895625437 +0800
+diff -uNr oma-1.22.3/i18n/zh-CN/oma.ftl oma-1.22.3.mod/i18n/zh-CN/oma.ftl
+--- oma-1.22.3/i18n/zh-CN/oma.ftl	2025-10-21 17:36:42.000000000 +0800
++++ oma-1.22.3.mod/i18n/zh-CN/oma.ftl	2025-10-22 19:22:00.396831561 +0800
+@@ -68,7 +68,7 @@
+ battery = 您的电脑目前似乎正在使用电池供电。oma 在执行任务时可能消耗大量电量，推荐您接入交流电源以防突然断电导致数据损坏。
+ continue = 您确定要继续吗？
+ changing-system = oma 正在修改您的系统。
+-failed-to-lock-oma = 无法解锁 oma 进程锁文件 (/run/lock/oma.lock)
++failed-to-lock-oma = 无法解锁 oma 进程锁文件 ($TERMUX_PREFIX/run/lock/oma.lock)
+ # main
+ user-aborted-op = 用户已中止操作。
+ # formatter
 @@ -127,7 +127,7 @@
  can-not-checksum = 无法解析 SHA256 校验和。
  failed-to-open-to-checksum = BUG：无法打开用于验证校验和的路径 { $path }，请于 https://github.com/AOSC-Dev/oma 报告问题。
@@ -52,9 +70,18 @@ diff -uNr oma-1.22.1/i18n/zh-CN/oma.ftl oma-1.22.1.mod/i18n/zh-CN/oma.ftl
  no-check-dbus-tips = 目前 oma 已被配置为不探测系统运行状态，将忽略电源及用户会话等关键系统状态；如继续操作可能会导致系统故障。
  oma-history-is-empty = oma 历史记录为空。
  tui-pending = 待办事项
-diff -uNr oma-1.22.1/i18n/zh-TW/oma.ftl oma-1.22.1.mod/i18n/zh-TW/oma.ftl
---- oma-1.22.1/i18n/zh-TW/oma.ftl	2025-10-15 18:03:09.000000000 +0800
-+++ oma-1.22.1.mod/i18n/zh-TW/oma.ftl	2025-10-15 22:43:25.895625437 +0800
+diff -uNr oma-1.22.3/i18n/zh-TW/oma.ftl oma-1.22.3.mod/i18n/zh-TW/oma.ftl
+--- oma-1.22.3/i18n/zh-TW/oma.ftl	2025-10-21 17:36:42.000000000 +0800
++++ oma-1.22.3.mod/i18n/zh-TW/oma.ftl	2025-10-22 19:21:54.364831563 +0800
+@@ -64,7 +64,7 @@
+ battery = 您的電腦目前似乎正在使用電池供電。oma 在執行任務時可能消耗大量電量，建議插電以防意外斷電導致資料損壞。
+ continue = 您確定要繼續嗎？
+ changing-system = oma 正在更改您的系統。
+-failed-to-lock-oma = 無法解鎖 oma 行程鎖檔案 (/run/lock/oma.lock)
++failed-to-lock-oma = 無法解鎖 oma 行程鎖檔案 ($TERMUX_PREFIX/run/lock/oma.lock)
+ # main
+ user-aborted-op = 使用者已中止操作。
+ # formatter
 @@ -123,7 +123,7 @@
  can-not-checksum = 無法解析 SHA256 雜湊值。
  failed-to-open-to-checksum = BUG：無法打開用於驗證雜湊值的路徑 { $path }，請於 https://github.com/AOSC-Dev/oma 報告問題。
@@ -73,9 +100,9 @@ diff -uNr oma-1.22.1/i18n/zh-TW/oma.ftl oma-1.22.1.mod/i18n/zh-TW/oma.ftl
  no-check-dbus-tips = 目前 oma 已被設定為不探測系統執行狀態，將忽略電源及使用者工作階段等關鍵系統狀態；如繼續操作可能會導致系統故障。
  oma-history-is-empty = oma 歷史記錄為空。
  tui-pending = 待辦事項
-diff -uNr oma-1.22.1/oma-contents/examples/list_files.rs oma-1.22.1.mod/oma-contents/examples/list_files.rs
---- oma-1.22.1/oma-contents/examples/list_files.rs	2025-10-15 18:03:09.000000000 +0800
-+++ oma-1.22.1.mod/oma-contents/examples/list_files.rs	2025-10-15 22:41:54.855625472 +0800
+diff -uNr oma-1.22.3/oma-contents/examples/list_files.rs oma-1.22.3.mod/oma-contents/examples/list_files.rs
+--- oma-1.22.3/oma-contents/examples/list_files.rs	2025-10-21 17:36:42.000000000 +0800
++++ oma-1.22.3.mod/oma-contents/examples/list_files.rs	2025-10-22 19:21:00.280831584 +0800
 @@ -1,7 +1,7 @@
  use oma_contents::searcher::{Mode, pure_search};
  
@@ -85,9 +112,9 @@ diff -uNr oma-1.22.1/oma-contents/examples/list_files.rs oma-1.22.1.mod/oma-cont
          println!("{pkg}: {file}")
      })
      .unwrap();
-diff -uNr oma-1.22.1/oma-contents/examples/list_files_rg.rs oma-1.22.1.mod/oma-contents/examples/list_files_rg.rs
---- oma-1.22.1/oma-contents/examples/list_files_rg.rs	2025-10-15 18:03:09.000000000 +0800
-+++ oma-1.22.1.mod/oma-contents/examples/list_files_rg.rs	2025-10-15 22:41:26.059625483 +0800
+diff -uNr oma-1.22.3/oma-contents/examples/list_files_rg.rs oma-1.22.3.mod/oma-contents/examples/list_files_rg.rs
+--- oma-1.22.3/oma-contents/examples/list_files_rg.rs	2025-10-21 17:36:42.000000000 +0800
++++ oma-1.22.3.mod/oma-contents/examples/list_files_rg.rs	2025-10-22 19:21:00.280831584 +0800
 @@ -1,7 +1,7 @@
  use oma_contents::searcher::{Mode, ripgrep_search};
  
@@ -97,9 +124,9 @@ diff -uNr oma-1.22.1/oma-contents/examples/list_files_rg.rs oma-1.22.1.mod/oma-c
          println!("{pkg}: {file}")
      })
      .unwrap();
-diff -uNr oma-1.22.1/oma-contents/src/parser.rs oma-1.22.1.mod/oma-contents/src/parser.rs
---- oma-1.22.1/oma-contents/src/parser.rs	2025-10-15 18:03:09.000000000 +0800
-+++ oma-1.22.1.mod/oma-contents/src/parser.rs	2025-10-15 22:43:25.895625437 +0800
+diff -uNr oma-1.22.3/oma-contents/src/parser.rs oma-1.22.3.mod/oma-contents/src/parser.rs
+--- oma-1.22.3/oma-contents/src/parser.rs	2025-10-21 17:36:42.000000000 +0800
++++ oma-1.22.3.mod/oma-contents/src/parser.rs	2025-10-22 19:21:00.280831584 +0800
 @@ -77,11 +77,11 @@
  
  #[test]
@@ -114,9 +141,9 @@ diff -uNr oma-1.22.1/oma-contents/src/parser.rs oma-1.22.1.mod/oma-contents/src/
 +        ("$TERMUX_PREFIX/etc/i have multi space", vec!["foo/bar/abc"])
      )
  }
-diff -uNr oma-1.22.1/oma-history/examples/last_upgrade_date.rs oma-1.22.1.mod/oma-history/examples/last_upgrade_date.rs
---- oma-1.22.1/oma-history/examples/last_upgrade_date.rs	2025-10-15 18:03:09.000000000 +0800
-+++ oma-1.22.1.mod/oma-history/examples/last_upgrade_date.rs	2025-10-15 22:42:25.627625460 +0800
+diff -uNr oma-1.22.3/oma-history/examples/last_upgrade_date.rs oma-1.22.3.mod/oma-history/examples/last_upgrade_date.rs
+--- oma-1.22.3/oma-history/examples/last_upgrade_date.rs	2025-10-21 17:36:42.000000000 +0800
++++ oma-1.22.3.mod/oma-history/examples/last_upgrade_date.rs	2025-10-22 19:21:00.280831584 +0800
 @@ -1,7 +1,7 @@
  use oma_history::{connect_db, last_upgrade_timestamp};
  
@@ -126,9 +153,9 @@ diff -uNr oma-1.22.1/oma-history/examples/last_upgrade_date.rs oma-1.22.1.mod/om
      let n = last_upgrade_timestamp(&conn).unwrap();
  
      println!(
-diff -uNr oma-1.22.1/oma-history/src/migrations.rs oma-1.22.1.mod/oma-history/src/migrations.rs
---- oma-1.22.1/oma-history/src/migrations.rs	2025-10-15 18:03:09.000000000 +0800
-+++ oma-1.22.1.mod/oma-history/src/migrations.rs	2025-10-15 22:42:40.171625454 +0800
+diff -uNr oma-1.22.3/oma-history/src/migrations.rs oma-1.22.3.mod/oma-history/src/migrations.rs
+--- oma-1.22.3/oma-history/src/migrations.rs	2025-10-21 17:36:42.000000000 +0800
++++ oma-1.22.3.mod/oma-history/src/migrations.rs	2025-10-22 19:21:00.280831584 +0800
 @@ -334,7 +334,7 @@
          println!(
              r#"oma ran into unexpected issues whilst migrating the history database, some entries were not migrated. Please consider sharing your oma history database file at:
@@ -138,9 +165,9 @@ diff -uNr oma-1.22.1/oma-history/src/migrations.rs oma-1.22.1.mod/oma-history/sr
  
  with us to help with debugging."#
          );
-diff -uNr oma-1.22.1/oma-refresh/src/db.rs oma-1.22.1.mod/oma-refresh/src/db.rs
---- oma-1.22.1/oma-refresh/src/db.rs	2025-10-15 18:03:09.000000000 +0800
-+++ oma-1.22.1.mod/oma-refresh/src/db.rs	2025-10-15 22:42:07.691625467 +0800
+diff -uNr oma-1.22.3/oma-refresh/src/db.rs oma-1.22.3.mod/oma-refresh/src/db.rs
+--- oma-1.22.3/oma-refresh/src/db.rs	2025-10-21 17:36:42.000000000 +0800
++++ oma-1.22.3.mod/oma-refresh/src/db.rs	2025-10-22 19:21:00.280831584 +0800
 @@ -549,7 +549,7 @@
          let index_target_config =
              IndexTargetConfig::new(self.manifest_config.clone(), vec![], &self.arch);
@@ -150,9 +177,9 @@ diff -uNr oma-1.22.1/oma-refresh/src/db.rs oma-1.22.1.mod/oma-refresh/src/db.rs
  
          let archs_from_file = if let Ok(file) = archs_from_file {
              let res = file.lines().map(|x| x.to_string()).collect::<Vec<_>>();
-diff -uNr oma-1.22.1/src/config.rs oma-1.22.1.mod/src/config.rs
---- oma-1.22.1/src/config.rs	2025-10-15 18:03:09.000000000 +0800
-+++ oma-1.22.1.mod/src/config.rs	2025-10-15 22:43:25.895625437 +0800
+diff -uNr oma-1.22.3/src/config.rs oma-1.22.3.mod/src/config.rs
+--- oma-1.22.3/src/config.rs	2025-10-21 17:36:42.000000000 +0800
++++ oma-1.22.3.mod/src/config.rs	2025-10-22 19:21:00.280831584 +0800
 @@ -122,7 +122,7 @@
  
  impl Config {
@@ -162,9 +189,9 @@ diff -uNr oma-1.22.1/src/config.rs oma-1.22.1.mod/src/config.rs
              warn!("{}", fl!("config-invalid"));
              return toml::from_str::<Self>(DEFAULT_CONFIG).unwrap();
          };
-diff -uNr oma-1.22.1/src/main.rs oma-1.22.1.mod/src/main.rs
---- oma-1.22.1/src/main.rs	2025-10-15 18:03:09.000000000 +0800
-+++ oma-1.22.1.mod/src/main.rs	2025-10-15 22:42:16.963625463 +0800
+diff -uNr oma-1.22.3/src/main.rs oma-1.22.3.mod/src/main.rs
+--- oma-1.22.3/src/main.rs	2025-10-21 17:36:42.000000000 +0800
++++ oma-1.22.3.mod/src/main.rs	2025-10-22 19:21:00.280831584 +0800
 @@ -306,7 +306,7 @@
      let dry_run = oma.global.dry_run;
  
@@ -174,3 +201,15 @@ diff -uNr oma-1.22.1/src/main.rs oma-1.22.1.mod/src/main.rs
      } else {
          dirs::state_dir()
              .expect("Failed to get state dir")
+diff -uNr oma-1.22.3/src/tui/mod.rs oma-1.22.3.mod/src/tui/mod.rs
+--- oma-1.22.3/src/tui/mod.rs	2025-10-21 17:36:42.000000000 +0800
++++ oma-1.22.3.mod/src/tui/mod.rs	2025-10-22 19:21:43.304831567 +0800
+@@ -142,7 +142,7 @@
+             });
+         }
+ 
+-        if Path::new("/run/lock/oma.lock").exists() {
++        if Path::new("$TERMUX_PREFIX/run/lock/oma.lock").exists() {
+             return Err(OutputError {
+                 description: fl!("failed-to-lock-oma"),
+                 source: None,
